@@ -1,26 +1,27 @@
-# Figures
+# Figures — Coherence Under Constraint (CUC)
 
-This folder contains all diagrams used in the Coherence Under Constraint (CUC) framework.
+## Figure 1A — Coherence Emergence Under Constraint
+Time evolution of global coherence R(t) under three regimes:
+- Low coupling / weak constraint → unstable
+- Balanced regime → sustained coherence
+- High coupling / strong constraint → rapid stabilization
 
-## Contents
+## Figure 1B — Coupling–Constraint Phase Diagram
+Heatmap of sustained coherence as a function of:
+- Coupling strength (K)
+- Constraint strength (B)
 
-- Core conceptual diagrams (layer architecture, coherence basins, constraint manifolds)
-- Interface and boundary models
-- Multi-scale propagation diagrams
-- Unified system diagrams
+Shows existence of coherence basin regions.
 
-## Structure
+## Figure 1C — Throughput–Dissipation Survival Map
+Heatmap showing sustained coherence under:
+- Throughput (E)
+- Dissipation (D)
 
-/figures
-/scripts → Python scripts for generating figures (optional)
-/output → Generated images (PNG, SVG)
+Reveals energy requirements for structure persistence.
 
-## Notes
+## Figure 1D — Survival Boundary
+Minimum throughput required to maintain coherence above threshold (R ≥ 0.55) as dissipation increases.
 
-Figures are designed to:
-
-- visually represent core CUC concepts  
-- support the manuscript  
-- improve cross-domain interpretability  
-
-All figures correspond to labeled sections in the paper.
+## Figure 4 — Unified Computational Plate
+Combined figure set integrating all major CUC simulation outputs.
