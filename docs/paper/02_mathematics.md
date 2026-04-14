@@ -315,7 +315,7 @@ within constraint space.
 
 ![Figure 4](../../figures/figure_4_unified_plate.png)
 
-Integrated visualization of the CUC computational framework, combining time-domain coherence emergence, phase diagrams, energy constraints, and survival boundaries.
+*Figure 4. Composite visualization of the Coherence Under Constraint (CUC) framework integrating time-domain coherence emergence, coupling–constraint phase structure, throughput–dissipation energy balance, and survival boundaries. The combined representation demonstrates that sustained structure arises only within regimes where coherence is maintained under constraint and sufficient energy flow.*
 
 ---
 
