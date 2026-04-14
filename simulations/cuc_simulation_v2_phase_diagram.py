@@ -1,3 +1,11 @@
+"""
+CUC Simulation v2
+Figure 1B — Coupling–Constraint Phase Diagram
+
+Generates a heatmap of sustained coherence as a function
+of coupling strength (K) and constraint strength (B).
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -75,4 +83,5 @@ plt.xlabel('Coupling strength K')
 plt.ylabel('Constraint strength B')
 plt.title('CUC Simulation v2: Phase Diagram of Sustained Coherence')
 plt.tight_layout()
+plt.savefig("figure_1B_phase_diagram.png", dpi=300)
 plt.show()
