@@ -181,11 +181,11 @@ E_{in} \geq E_d
 
 ### Figure 1C — Throughput–Dissipation Survival Map
 
-![Figure 1C](../figures/figure_1C_throughput_map.png)
+![Figure 1C](../../figures/figure_1C_throughput_map.png)
 
 ### Figure 1D — Survival Boundary
 
-![Figure 1D](../figures/figure_1D_survival_boundary.png)
+![Figure 1D](../../figures/figure_1D_survival_boundary.png)
 
 Minimum throughput required to maintain coherence above threshold as dissipation increases. Defines the boundary of structural persistence.
 
