@@ -48,5 +48,6 @@ caption = (
 )
 fig.text(0.5, 0.02, caption, ha="center", va="bottom", wrap=True, fontsize=10)
 
-plt.tight_layout(rect=[0, 0.05, 1, 0.95])
-plt.savefig(plate_path, dpi=240, bbox_inches="tight")
+plt.tight_layout()(plate_path, dpi=240, bbox_inches="tight")
+plt.savefig("figure_1D_survival_boundary.png", dpi=300)
+plt.show()(rect=[0, 0.05, 1, 0.95])
