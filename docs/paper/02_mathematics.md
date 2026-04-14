@@ -179,6 +179,12 @@ Condition:
 E_{in} \geq E_d
 \]
 
+### Figure 1C — Throughput–Dissipation Survival Map
+
+![Figure 1C](../figures/figure_1C_throughput_map.png)
+
+Heatmap showing sustained coherence under varying throughput (E) and dissipation (D). Demonstrates the energetic requirement for maintaining structure.
+
 ---
 
 ## 20. Threshold Transition Condition
