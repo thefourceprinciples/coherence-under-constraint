@@ -308,6 +308,12 @@ within constraint space.
 | Economics    | Market correlation        |
 | Sociology    | Network coherence         |
 
+### Figure 4 — Unified Computational Figure Set
+
+![Figure 4](../figures/figure_4_unified_plate.png)
+
+Integrated visualization of the CUC computational framework, combining time-domain coherence emergence, phase diagrams, energy constraints, and survival boundaries.
+
 ---
 
 ## Closing of Part II
