@@ -123,3 +123,19 @@ Final Statement
 
 Reality is not random structure.
 It is structured persistence under constraint.
+## Why This Matters
+
+Modern science explains structure differently across domains:
+- physics → phase transitions  
+- biology → self-organization  
+- cognition → synchronization  
+- society → institutions  
+
+CUC proposes that these are not separate mechanisms,  
+but expressions of a shared structural principle.
+
+If true, this provides:
+
+- a unified lens for analyzing complex systems  
+- a bridge between physical, biological, and social theory  
+- a foundation for computational modeling of structure itself  
