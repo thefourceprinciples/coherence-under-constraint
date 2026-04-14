@@ -1,3 +1,11 @@
+"""
+CUC Simulation v3
+Figures 1C–1D — Throughput–Dissipation Survival
+
+Maps sustained coherence across energy throughput (E)
+and dissipation (D), and extracts survival boundary.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
