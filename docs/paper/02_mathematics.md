@@ -205,7 +205,7 @@ Transition occurs when:
 
 ### Figure 1B — Coupling–Constraint Phase Diagram
 
-![Figure 1B](../figures/figure_1B_phase_diagram.png)
+![Figure 1B](../../figures/figure_1B_phase_diagram.png)
 
 Phase diagram showing sustained coherence as a function of coupling strength (K) and constraint strength (B). The emergence of high-coherence regions demonstrates the existence of coherence basins.
 
@@ -310,7 +310,7 @@ within constraint space.
 
 ### Figure 4 — Unified Computational Figure Set
 
-![Figure 4](../figures/figure_4_unified_plate.png)
+![Figure 4](../../figures/figure_4_unified_plate.png)
 
 Integrated visualization of the CUC computational framework, combining time-domain coherence emergence, phase diagrams, energy constraints, and survival boundaries.
 
