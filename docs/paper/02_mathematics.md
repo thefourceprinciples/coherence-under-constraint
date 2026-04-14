@@ -184,13 +184,13 @@ E_{in} \geq E_d
 
 ![Figure 1C](../../figures/figure_1C_throughput_map.png)
 
+*Figure 1C. Throughput–dissipation coherence map showing sustained coherence as a function of energy flow (E) and dissipation (D). The simulation demonstrates that structural persistence requires sufficient throughput to offset dissipative losses.*
+
 ### Figure 1D — Survival Boundary
 
 ![Figure 1D](../../figures/figure_1D_survival_boundary.png)
 
-Minimum throughput required to maintain coherence above threshold as dissipation increases. Defines the boundary of structural persistence.
-
-Heatmap showing sustained coherence under varying throughput (E) and dissipation (D). Demonstrates the energetic requirement for maintaining structure.
+*Figure X. Throughput–dissipation phase structure showing sustained coherence as a function of energy flow (E) and dissipation (D). The heatmap reveals the minimum throughput required to maintain coherence above threshold, defining the boundary between viable and non-viable structural regimes.*
 
 ---
 
