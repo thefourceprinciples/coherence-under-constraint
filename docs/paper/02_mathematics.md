@@ -208,9 +208,9 @@ Transition occurs when:
 
 ### Figure 1B — Coupling–Constraint Phase Diagram
 
-![Figure 1B](../../figures/figure_1B_phase_diagram.png)
+![Figure 1B](../figures/figure_1B_phase_diagram.png)
 
-Phase diagram showing sustained coherence as a function of coupling strength (K) and constraint strength (B). The emergence of high-coherence regions demonstrates the existence of coherence basins.
+*Figure 1B. Coupling–constraint phase diagram showing sustained coherence as a function of coupling strength (K) and constraint intensity (B). High-coherence regions identify coherence basins within parameter space, indicating regimes where stable structure can emerge and persist.*
 
 At this point:
 
