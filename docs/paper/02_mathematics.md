@@ -98,7 +98,7 @@ Using a Kuramoto-style order parameter:
 R(t) = \frac{1}{N} \left| \sum e^{i\phi_i(t)} \right|
 ### Figure 1A — Coherence Emergence Under Constraint
 
-![Figure 1A](/thefourceprinciples/coherence-under-constraint/figures/figure_1A_coherence_emergence.png)
+![Figure 1A](../../figures/figure_1A_coherence_emergence.png)
 
 Simulation of global coherence R(t) under varying coupling and constraint regimes. The balanced regime produces sustained coherence, validating the CUC stability condition.
 \]
