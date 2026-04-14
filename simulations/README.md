@@ -27,3 +27,10 @@ Initial simulation layer complete. Further refinement may include:
 - robustness testing
 - stochastic extensions
 - higher-dimensional constraint models
+- 
+## Reproducing Figures
+
+Run:
+
+```bash
+python simulations/cuc_generate_all_figures.py
