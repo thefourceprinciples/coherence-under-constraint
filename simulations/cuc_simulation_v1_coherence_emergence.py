@@ -1,3 +1,14 @@
+"""
+CUC Simulation v1
+Figure 1A — Coherence Emergence Under Constraint
+
+Simulates time-domain coherence R(t) under varying
+coupling and constraint regimes.
+
+Author: Gage Fry
+Framework: Coherence Under Constraint (CUC)
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
