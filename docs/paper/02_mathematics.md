@@ -191,6 +191,12 @@ Transition occurs when:
 \lambda = \lambda_c
 \]
 
+### Figure 1B — Coupling–Constraint Phase Diagram
+
+![Figure 1B](../figures/figure_1B_phase_diagram.png)
+
+Phase diagram showing sustained coherence as a function of coupling strength (K) and constraint strength (B). The emergence of high-coherence regions demonstrates the existence of coherence basins.
+
 At this point:
 
 \[
