@@ -1,141 +1,256 @@
-Coherence Under Constraint (CUC)
+# Coherence Under Constraint (CUC)
 
-A Unified Framework for Emergent Structure Across Physical, Biological, Cognitive, and Social Systems
+**A research framework for emergent structure across physical, biological, cognitive, technological, and social systems.**
 
-Author: Gage Fry
-Framework Development: Harmonic Intelligence Council
+**Author:** Gage Fry  
+**Project lineage:** The Fource Principles / Framework Garden  
+**Status:** Conceptual framework and early-stage research program  
+**Version:** v0.1.0
 
-Overview
+---
 
-Across physics, biology, cognition, and human systems, a recurring pattern appears:
+## Overview
 
-Stable structure emerges when dynamic processes achieve coherence under constraint.
+Across many domains, stable structure appears when interacting processes become coherent inside limiting conditions.
 
-Despite this, modern science treats these domains separately:
+Examples include:
 
-Physics → phase transitions
-Biology → self-organization
-Neuroscience → synchronization
-Sociology → institutional order
-Systems theory → attractors
+- phase synchronization in physical systems;
+- self-organization in biological systems;
+- neural synchrony in cognitive systems;
+- stable protocols in technological systems;
+- durable norms and institutions in social systems.
 
-Coherence Under Constraint (CUC) proposes that these are not separate phenomena, but expressions of a single structural principle.
+**Coherence Under Constraint (CUC)** proposes that these are not isolated metaphors. They may be understood as recurring expressions of a shared structural pattern:
 
-Core Thesis
+> Stable structure emerges when coherence is maintained under constraint through sustained energy or information flow.
+
+CUC is intended as a bridge framework: not a replacement for specialized sciences, but a way to compare structure formation, persistence, breakdown, and transition across domains.
+
+---
+
+## Core Thesis
+
+```text
 Structure = Coherence × Constraint × Throughput
+```
 
 Where:
 
-Coherence → alignment of interacting elements
-Constraint → boundary conditions restricting possible states
-Throughput → sustaining energy/information flow
+- **Coherence** is the alignment, synchronization, or correlation of interacting elements.
+- **Constraint** is the boundary condition that limits possible states.
+- **Throughput** is the sustaining flow of energy, matter, information, attention, or resources.
 
-Without coherence → systems dissolve
-Without constraint → systems disperse
-Without throughput → systems decay
+In plain language:
 
-Key Concepts
-Substrate
+- without coherence, systems dissolve into noise;
+- without constraint, systems disperse into unbounded possibility;
+- without throughput, systems decay or freeze;
+- with all three, systems can form stable, adaptive structure.
 
-The medium in which dynamics occur
-(e.g., spacetime, chemistry, neural networks, societies)
+---
 
-Coherence
+## Key Terms
 
-Stability of phase relationships across interacting components
+### Substrate
 
-Constraint
+The medium in which system dynamics occur.
 
-Any boundary limiting system states (physical, biological, informational, social)
+Examples: spacetime, chemical media, cells, neural networks, language, institutions, databases, and software systems.
 
-Coherence Basins
+### Coherence
 
-Stable attractor regions in system state space
+The degree to which interacting components maintain stable relationships across time.
 
-Threshold Transitions
+A basic synchronization-style metric is:
 
-Phase shifts when constraints or energy cross critical values
+```text
+R(t) = |(1/N) Σ exp(iθᵢ(t))|
+```
 
-Interface Dominance
+where `R(t)` approaches `1` when phase relationships are highly aligned and approaches `0` when they are incoherent.
 
-Boundaries between systems amplify coherence and drive transformation
+### Constraint
 
-Mathematical Backbone
-Coherence Metric (Synchronization)
-R(t) = | (1/N) Σ exp(iθ_i(t)) |
-System Dynamics
-dX/dt = F(X,t) + ΓC(X)
-Energy Balance Condition
-P_in ≥ P_diss
-Structure Stability Condition
-R(t) > R_critical
-Cross-Domain Mapping
-Domain	Coherent Structure Example
-Physics	Crystal lattices
-Chemistry	Molecular bonds
-Biology	Cells
-Neuroscience	Neural synchronization
-Ecology	Stable ecosystems
-Society	Institutions
-Technology	Network protocols
-What This Is (and Isn’t)
+A boundary condition that limits possible system states.
+
+Examples: physical laws, membranes, geometries, rules, protocols, budgets, interfaces, time limits, social norms, and memory structures.
+
+### Throughput
+
+The sustaining flow that allows a system to persist or adapt.
+
+Examples: energy, nutrients, information, computation, capital, attention, labor, and communication.
+
+### Coherence Basin
+
+A stable attractor region in system state space where a pattern can persist.
+
+### Threshold Transition
+
+A phase shift that occurs when coherence, constraint, or throughput crosses a critical range.
+
+### Interface Dominance
+
+A condition where boundaries between systems become the main sites of transformation, failure, adaptation, or coherence gain.
+
+---
+
+## Minimal Formal Backbone
+
+CUC begins with three linked claims:
+
+1. **Coherence condition**
+
+   ```text
+   R(t) > R_critical
+   ```
+
+   A structure can persist only when coherence remains above a domain-specific critical threshold.
+
+2. **Throughput condition**
+
+   ```text
+   P_in ≥ P_diss
+   ```
+
+   Sustaining input must meet or exceed dissipative loss.
+
+3. **Constrained dynamics condition**
+
+   ```text
+   dX/dt = F(X,t) + ΓC(X)
+   ```
+
+   System evolution depends on internal dynamics `F(X,t)` plus a constraint operator `C(X)` scaled by coupling strength `Γ`.
+
+This is not yet a closed theory. It is a research scaffold for building measurable models.
+
+---
+
+## Cross-Domain Examples
+
+- **Physics:** crystal lattices, oscillators, phase transitions.
+- **Chemistry:** molecular bonding, reaction networks, autocatalysis.
+- **Biology:** cells, membranes, morphogenesis, homeostasis.
+- **Neuroscience:** neural synchronization, cognitive binding, attention.
+- **Ecology:** stable ecosystems, niche boundaries, succession dynamics.
+- **Technology:** network protocols, databases, distributed systems, AI memory.
+- **Society:** institutions, laws, trust networks, cultural continuity.
+
+The purpose of CUC is not to flatten these domains into one explanation. The purpose is to identify shared structural grammar while preserving domain-specific mechanisms.
+
+---
+
+## What This Is
 
 CUC is:
 
-A meta-framework for structure
-A cross-disciplinary synthesis
-A research program
+- a meta-framework for structure formation and persistence;
+- a cross-domain research program;
+- a candidate vocabulary for comparing complex systems;
+- a foundation for simulation, measurement, and falsifiable testing.
 
-CUC is NOT:
+## What This Is Not
 
-A replacement for physics or biology
-A new fundamental force
-A closed theory
-Research Program
+CUC is not:
 
-CUC predicts:
+- a new fundamental physical force;
+- a replacement for physics, biology, neuroscience, sociology, or systems theory;
+- proof that all systems are the same;
+- a complete mathematical theory;
+- a claim that coherence is always good.
 
-Coherence fluctuations near phase transitions
-Stable attractor basins in complex systems
-Interface regions dominating system behavior
-Cross-domain structural similarity
-Repository Structure
-/docs
-  /paper.md
-  /cas/
-  /figures/
+Coherence can support life, intelligence, and cooperation. It can also support lock-in, rigidity, capture, and harmful institutional stability. Constraint must therefore be evaluated by outcome, reversibility, adaptability, and ethical context.
 
-/simulations
-  /coherence_models
-  /constraint_tests
-Status
+---
 
-This framework is currently:
+## Research Questions
 
-Conceptually complete
-Mathematically grounded
-Ready for computational validation
-Next Steps
-Simulation models
-Cross-domain dataset analysis
-Formal publication submission
-Final Statement
+CUC is designed to support testable questions such as:
 
-Reality is not random structure.
+1. Can coherence metrics predict the persistence or collapse of a system near transition points?
+2. Do interface regions consistently dominate transformation across physical, biological, and social systems?
+3. Can constraint changes shift a system from one coherence basin to another?
+4. Can AI memory systems become more useful when organized by chronology, provenance, contradiction tracking, and coherence state?
+5. Can a general coherence-under-constraint metric improve comparison across domains without erasing domain-specific mechanisms?
+
+---
+
+## Initial Predictions
+
+CUC predicts that:
+
+- coherence fluctuations should increase near threshold transitions;
+- stable systems should occupy measurable attractor basins;
+- interfaces should disproportionately shape system transformation;
+- systems with strong coherence but poor throughput should become brittle;
+- systems with high throughput but weak constraint should disperse;
+- systems with constraint but weak coherence should become fragmented or coercive;
+- searchable chronology and provenance should improve long-term AI memory coherence.
+
+---
+
+## Repository Structure
+
+```text
+.
+├── README.md
+├── LICENSE
+├── CITATION.cff
+├── VERSION.md
+├── docs/
+│   ├── paper.md
+│   ├── glossary.md
+│   ├── case_studies/
+│   │   └── README.md
+│   └── figures/
+│       └── README.md
+└── simulations/
+    ├── coherence_models/
+    │   └── README.md
+    └── constraint_tests/
+        └── README.md
+```
+
+---
+
+## Current Status
+
+This repository is currently at **v0.1.0**.
+
+The framework is:
+
+- conceptually drafted;
+- bounded against overclaiming;
+- ready for computational modeling;
+- not yet empirically validated;
+- not yet peer reviewed.
+
+---
+
+## Next Milestones
+
+1. Build a simple oscillator-based coherence simulation.
+2. Define a minimal cross-domain coherence score.
+3. Add AI-memory case studies focused on chronology, retrieval, provenance, and contradiction repair.
+4. Compare CUC predictions against existing models in complex systems theory.
+5. Prepare a preprint-style paper for external critique.
+
+---
+
+## Citation
+
+Use `CITATION.cff` for citation metadata.
+
+Suggested short citation:
+
+> Fry, G. (2026). *Coherence Under Constraint: A Unified Framework for Emergent Structure Across Systems*.
+
+---
+
+## Final Statement
+
+Reality is not merely random structure.
+
 It is structured persistence under constraint.
-## Why This Matters
-
-Modern science explains structure differently across domains:
-- physics → phase transitions  
-- biology → self-organization  
-- cognition → synchronization  
-- society → institutions  
-
-CUC proposes that these are not separate mechanisms,  
-but expressions of a shared structural principle.
-
-If true, this provides:
-
-- a unified lens for analyzing complex systems  
-- a bridge between physical, biological, and social theory  
-- a foundation for computational modeling of structure itself  
