@@ -1,0 +1,154 @@
+schema_version: "0.1"
+canon_version: "0.2.0-draft.1"
+last_reviewed: "2026-07-18"
+symbols:
+  - id: system_state
+    latex: "x(t)"
+    meaning: "State of the selected system at time t."
+    type: "element of state space"
+    range: "x(t) in X"
+
+  - id: environment_state
+    latex: "e(t)"
+    meaning: "State of relevant influences outside the selected system boundary."
+    type: "element of environment state space"
+    range: "e(t) in E"
+
+  - id: organization_map
+    latex: "\\mathcal{O}"
+    meaning: "Map from microscopic system state to the organization being evaluated."
+    type: "mapping"
+    range: "X to organizational description space"
+
+  - id: reference_organization
+    latex: "O_0"
+    meaning: "Reference organization or organizational class."
+    type: "organization object"
+    range: "domain-defined"
+
+  - id: organization_distance
+    latex: "d_O"
+    meaning: "Distance or discrepancy between organizational descriptions."
+    type: "metric or declared discrepancy"
+    range: "nonnegative"
+
+  - id: organization_tolerance
+    latex: "\\varepsilon_O"
+    meaning: "Maximum organization distance treated as identity-preserving."
+    type: "threshold"
+    range: "nonnegative"
+
+  - id: viability_region
+    latex: "\\mathcal{V}(t)"
+    meaning: "States compatible with continued operation at time t."
+    type: "subset of state space"
+    range: "V(t) subset of X"
+
+  - id: constraints
+    latex: "\\mathcal{M}"
+    meaning: "Set or operator defining admissible states, transitions, or exchanges."
+    type: "set or operator"
+    range: "domain-defined"
+
+  - id: constraint_fitness
+    latex: "\\chi_{\\mathcal{M}}"
+    meaning: "Degree to which admissible transitions preserve or restore declared organization."
+    type: "normalized score when used in reduced models"
+    range: "[0, 1]"
+
+  - id: raw_throughput
+    latex: "J(t)"
+    meaning: "Rate of a declared quantity flowing through or within the system."
+    type: "rate"
+    range: "domain units per time"
+
+  - id: throughput_adequacy
+    latex: "\\psi_J(t)"
+    meaning: "Degree to which throughput lies in the declared viable operating region."
+    type: "normalized score"
+    range: "[0, 1]"
+
+  - id: pairwise_fource
+    latex: "\\Phi_{ij}"
+    meaning: "Pairwise amplitude-weighted, phase-error-limited Fource functional."
+    type: "model functional"
+    range: "nonnegative; preferably dimensionless"
+
+  - id: aggregate_fource
+    latex: "\\bar{\\Phi}"
+    meaning: "Weighted aggregate of pairwise Fource functionals."
+    type: "model functional"
+    range: "nonnegative"
+
+  - id: coherence
+    latex: "r"
+    meaning: "Declared relational coherence observable."
+    type: "normalized observable"
+    range: "normally [0, 1]"
+
+  - id: local_coherence
+    latex: "r_L"
+    meaning: "Aggregate coherence within declared modules."
+    type: "normalized observable"
+    range: "[0, 1]"
+
+  - id: interface_coherence
+    latex: "r_I"
+    meaning: "Compatibility or coherence across declared interfaces."
+    type: "normalized observable"
+    range: "[0, 1]"
+
+  - id: global_coherence
+    latex: "r_G"
+    meaning: "System-wide coherence observable."
+    type: "normalized observable"
+    range: "[0, 1]"
+
+  - id: interface_mismatch
+    latex: "M_I(t)"
+    meaning: "Normalized incompatibility across declared interfaces."
+    type: "normalized diagnostic"
+    range: "[0, 1]"
+
+  - id: darkness
+    latex: "D(t)"
+    meaning: "Derived diagnostic of modeled coherence- and persistence-degrading conditions."
+    type: "nonnegative diagnostic"
+    range: "[0, infinity)"
+
+  - id: persistence
+    latex: "P_T"
+    meaning: "Persistence of organization and viability over horizon T under a declared protocol."
+    type: "probability or occupancy fraction, definition-specific"
+    range: "[0, 1]"
+
+  - id: survival
+    latex: "S(T)"
+    meaning: "Probability that failure time exceeds horizon T."
+    type: "survival function"
+    range: "[0, 1]"
+
+  - id: cuc_propensity
+    latex: "Q_{\\mathrm{CUC}}"
+    meaning: "Reduced dimensionless persistence-support score; not automatically a probability."
+    type: "reduced-model score"
+    range: "model-defined"
+
+  - id: bad_loss
+    latex: "\\lambda_{\\mathrm{bad}}"
+    meaning: "Normalized organization-degrading loss, excluding useful dissipation."
+    type: "nonnegative normalized quantity"
+    range: "[0, infinity)"
+
+  - id: horizon
+    latex: "T"
+    meaning: "Declared observation duration, cycle count, episode, or stopping horizon."
+    type: "positive duration or count"
+    range: "T > 0"
+
+  - id: perturbation_protocol
+    latex: "\\Pi"
+    meaning: "Initial-condition and perturbation distribution or experimental protocol."
+    type: "probability law or design"
+    range: "domain-defined"
+
