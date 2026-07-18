@@ -1,51 +1,84 @@
-# Glossary
+# CUC glossary
 
-This glossary defines the working vocabulary for Coherence Under Constraint (CUC).
+This concise glossary follows the v0.2 Charter. The complete definitions and symbol table live in [`CHARTER.md`](../CHARTER.md) and [`canon/symbols.yml`](../canon/symbols.yml).
+
+## Adaptation
+
+Change to parameters, policies, components, or constraints that supports persistence of a declared organization.
+
+## Boundary
+
+The operational inclusion rule and exchange interface between system and environment.
 
 ## Coherence
 
-Stable relationship, alignment, synchronization, correlation, or internal consistency among interacting elements across time.
+Organized compatibility among declared variables, relations, scales, and time windows. A valid coherence claim names the relation, estimator, scale, window, null model, and uncertainty.
 
 ## Constraint
 
-A boundary condition that limits possible system states. Constraints may be physical, biological, informational, computational, economic, social, legal, or symbolic.
+A condition shaping admissible states, transitions, or exchanges. Constraints may enable, restrict, protect, route, stabilize, or destabilize organization.
 
-## Throughput
+## Constraint fitness
 
-The sustaining flow required for persistence or adaptation. Examples include energy, matter, nutrients, information, computation, attention, resources, and communication.
+The degree to which a constraint architecture permits organization-preserving or organization-restoring transitions.
 
-## Substrate
+## Darkness
 
-The medium in which system dynamics occur.
+A nonnegative diagnostic of modeled coherence- and persistence-degrading conditions such as noise, boundary failure, and interface mismatch. It is not a moral category.
 
-## Structure
+## Equivalence class
 
-A persistent pattern of organization maintained through coherence, constraint, and throughput.
+The set of organizational descriptions treated as preserving identity within a declared tolerance.
 
-## Coherence Basin
+## Fource
 
-A stable attractor region in system state space where a pattern can persist under ordinary perturbation.
+An amplitude-weighted, phase-error-limited local interaction functional proposed as a coherence-generation mechanism in appropriate dynamical models.
 
-## Threshold Transition
+## Interface
 
-A phase shift or organizational change caused by coherence, constraint, or throughput crossing a critical range.
+A relation or boundary across which modules, components, or systems exchange influence.
 
-## Interface Dominance
+## Organization
 
-A condition where boundaries between systems become the primary sites of transformation, failure, adaptation, or coherence gain.
-
-## Dissipation
-
-Loss of usable energy, information, organization, or coherence over time.
+The relations, functions, invariants, roles, or patterns whose preservation defines identity for a study.
 
 ## Persistence
 
-A system's ability to maintain recognizable structure across time and perturbation.
+Survival of declared organization and viability over a declared horizon and perturbation regime.
 
-## Brittleness
+## Perturbation
 
-A condition where a system appears coherent but cannot adapt to changing constraints or throughput conditions.
+A declared displacement, disturbance, intervention, or change used to test survival or return.
 
-## Dispersion
+## Resilience
 
-A condition where high throughput exists without sufficient constraint or coherence, causing energy or information to spread without stable structure.
+Recovery of acceptable organization and viability within declared time and cost bounds after perturbation.
+
+## Return
+
+Recovery to an acceptable organizational equivalence class after displacement.
+
+## Robustness
+
+Continued organizational and viability survival under a declared perturbation class without substantial reconfiguration.
+
+## Structure
+
+A system considered through the organization whose persistence is in question.
+
+## Throughput
+
+The rate of relevant energy, matter, information, work, attention, or resource flow through or within a system.
+
+## Throughput adequacy
+
+The degree to which throughput lies inside the system’s viable operating region.
+
+## Transformation
+
+Change at one organizational level that may preserve a higher-order invariant, purpose, lineage, or value commitment.
+
+## Viability
+
+Satisfaction of declared conditions required for continued operation.
+
