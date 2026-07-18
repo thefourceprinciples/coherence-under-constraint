@@ -28,6 +28,7 @@ The framework is intended to support explicit models and testable comparisons. I
 
 ## Start here
 
+- [Permanent v0.2.0-draft.1 snapshot](releases/v0.2.0-draft.1.md) — immutable commit, checksums, release boundaries, and citation
 - [CUC Canon v0.2 Charter](CHARTER.md) — complete ontology, equations, hypotheses, falsifiers, evidence ladder, governance, and research constitution
 - [Canon registry](canon/README.md) — status rules, symbols, and machine-readable claims
 - [Experimental program](experiments/README.md) — the reference modular-oscillator benchmark
@@ -250,6 +251,8 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Formal cl
 ## Citation
 
 Citation metadata is provided in [`CITATION.cff`](CITATION.cff).
+
+The permanent draft is pinned to commit [`58fedab3b866fbcaceb12bd62ada618c63dde811`](https://github.com/thefourceprinciples/coherence-under-constraint/tree/58fedab3b866fbcaceb12bd62ada618c63dde811).
 
 Suggested draft citation:
 

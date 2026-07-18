@@ -20,6 +20,8 @@ This project follows semantic versioning for the public research program:
 
 ## [0.2.0-draft.1] — 2026-07-18
 
+**Permanent snapshot:** [`58fedab3b866fbcaceb12bd62ada618c63dde811`](https://github.com/thefourceprinciples/coherence-under-constraint/tree/58fedab3b866fbcaceb12bd62ada618c63dde811)
+
 ### Added
 
 - Full `CHARTER.md` reformalization.
@@ -44,4 +46,3 @@ This project follows semantic versioning for the public research program:
 
 - Initial public research scaffold.
 - Working paper, glossary, citation file, and early simulation directories.
-

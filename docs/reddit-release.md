@@ -109,7 +109,11 @@ The most helpful questions would be:
 
 Full Charter, equations, claim registry, limitations, and experiment design:
 
-**[Insert the permanent GitHub release link after the draft is merged.]**
+**Permanent v0.2.0-draft.1 snapshot:**  
+https://github.com/thefourceprinciples/coherence-under-constraint/tree/58fedab3b866fbcaceb12bd62ada618c63dde811
+
+**Direct Charter link:**  
+https://github.com/thefourceprinciples/coherence-under-constraint/blob/58fedab3b866fbcaceb12bd62ada618c63dde811/CHARTER.md
 
 ## Recommended first comment
 
@@ -135,4 +139,3 @@ Full Charter, equations, claim registry, limitations, and experiment design:
 - **Return:** recovery to an accepted organizational equivalence class after displacement.
 
 I am especially interested in strong rival models and failure cases. A critique that narrows the framework is more useful than agreement based on analogy.
-

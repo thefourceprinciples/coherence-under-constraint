@@ -7,6 +7,7 @@ authors:
     given-names: Gage
 repository-code: "https://github.com/thefourceprinciples/coherence-under-constraint"
 url: "https://github.com/thefourceprinciples/coherence-under-constraint"
+commit: "58fedab3b866fbcaceb12bd62ada618c63dde811"
 abstract: >-
   Coherence Under Constraint (CUC) is a formal research framework for studying
   how organized systems persist, fail, recover, and transform under declared
@@ -28,4 +29,3 @@ keywords:
 license: MIT
 version: "0.2.0-draft.1"
 date-released: "2026-07-18"
-
