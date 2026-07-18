@@ -1,0 +1,86 @@
+name: Formal claim
+description: Propose, revise, challenge, deprecate, or falsify a CUC claim.
+title: "[CLAIM] "
+body:
+  - type: dropdown
+    id: action
+    attributes:
+      label: Requested action
+      options:
+        - Propose
+        - Revise
+        - Challenge
+        - Deprecate
+        - Mark falsified
+    validations:
+      required: true
+
+  - type: input
+    id: claim_id
+    attributes:
+      label: Claim identifier
+      description: Use an existing identifier or propose a new stable identifier.
+      placeholder: CUC-H1
+    validations:
+      required: true
+
+  - type: textarea
+    id: exact_claim
+    attributes:
+      label: Exact claim
+      description: State one precise claim without promotional language.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and assumptions
+      description: Identify the model class, domain, variables, scale, horizon, and assumptions.
+    validations:
+      required: true
+
+  - type: textarea
+    id: prediction
+    attributes:
+      label: Prediction or derived consequence
+    validations:
+      required: true
+
+  - type: textarea
+    id: rival
+    attributes:
+      label: Rival or null model
+    validations:
+      required: true
+
+  - type: textarea
+    id: falsifier
+    attributes:
+      label: Falsifier
+      description: What result would count against the claim within its stated regime?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Current evidence level
+      options:
+        - E0 — Metaphorical intuition
+        - E1 — Formal specification
+        - E2 — Analytical or computational result
+        - E3 — Controlled synthetic experiment
+        - E4 — Cross-model replication
+        - E5 — Domain observation
+        - E6 — Prospective prediction
+        - E7 — Intervention or engineering validation
+        - E8 — Multi-domain structural replication
+    validations:
+      required: true
+
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Equations, code, data, or references
+
