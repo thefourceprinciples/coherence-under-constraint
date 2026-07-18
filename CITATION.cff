@@ -1,25 +1,31 @@
 cff-version: 1.2.0
-title: "Coherence Under Constraint: A Unified Framework for Emergent Structure Across Systems"
-message: "If you use this framework, please cite it using the metadata in this file."
+title: "Coherence Under Constraint: Foundational Charter and Research Program"
+message: "If you use this framework or its software, please cite it using this metadata."
 type: software
 authors:
   - family-names: Fry
     given-names: Gage
 repository-code: "https://github.com/thefourceprinciples/coherence-under-constraint"
 url: "https://github.com/thefourceprinciples/coherence-under-constraint"
-abstract: >
-  Coherence Under Constraint (CUC) is an early-stage research framework for
-  analyzing emergent structure, persistence, transition, and collapse across
-  physical, biological, cognitive, technological, and social systems.
+abstract: >-
+  Coherence Under Constraint (CUC) is a formal research framework for studying
+  how organized systems persist, fail, recover, and transform under declared
+  constraints, perturbations, boundaries, throughput conditions, and
+  degradation processes. Version 0.2 separates organization, viability,
+  coherence generation, persistence, and return; registers falsifiable
+  hypotheses; and defines a reproducible experimental program.
 keywords:
   - coherence
   - constraint
+  - persistence
   - complex systems
-  - emergence
+  - dynamical systems
   - synchronization
+  - resilience
   - systems theory
-  - Fource
-  - coherence under constraint
+  - emergence
+  - reproducible research
 license: MIT
-version: "0.1.0"
-date-released: "2026-06-06"
+version: "0.2.0-draft.1"
+date-released: "2026-07-18"
+

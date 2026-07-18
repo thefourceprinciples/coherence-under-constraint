@@ -1,256 +1,264 @@
-# Coherence Under Constraint (CUC)
+# Coherence Under Constraint
 
-**A research framework for emergent structure across physical, biological, cognitive, technological, and social systems.**
+**A falsifiable research framework for studying how organized systems persist, fail, recover, and transform under constraint.**
+
+[![Status: Draft research program](https://img.shields.io/badge/status-draft%20research%20program-8a6d3b)](CHARTER.md)
+[![Version: 0.2.0-draft.1](https://img.shields.io/badge/version-0.2.0--draft.1-4c6ef5)](VERSION.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **Author:** Gage Fry  
-**Project lineage:** The Fource Principles / Framework Garden  
-**Status:** Conceptual framework and early-stage research program  
-**Version:** v0.1.0
+**Lineage:** The Fource Principles / Framework Garden  
+**Canonical Garden identity:** G01-T003  
+**Legacy identity:** FR-003  
+**Current status:** Formalized research framework; not yet empirically validated or peer reviewed
 
 ---
 
-## Overview
+## The root question
 
-Across many domains, stable structure appears when interacting processes become coherent inside limiting conditions.
+When a system changes under pressure, what must survive for it to remain the same organized system?
 
-Examples include:
+Coherence Under Constraint, abbreviated **CUC**, begins with one invariant:
 
-- phase synchronization in physical systems;
-- self-organization in biological systems;
-- neural synchrony in cognitive systems;
-- stable protocols in technological systems;
-- durable norms and institutions in social systems.
+> **A structure persists when its organization survives the constraints acting upon it.**
 
-**Coherence Under Constraint (CUC)** proposes that these are not isolated metaphors. They may be understood as recurring expressions of a shared structural pattern:
+CUC studies the conditions under which an organization survives, fails, returns, or transforms while facing boundaries, perturbations, limited resources, throughput demands, noise, dissipation, and interface mismatch.
 
-> Stable structure emerges when coherence is maintained under constraint through sustained energy or information flow.
+The framework is intended to support explicit models and testable comparisons. It is not offered as a universal physical law or as a replacement for established sciences.
 
-CUC is intended as a bridge framework: not a replacement for specialized sciences, but a way to compare structure formation, persistence, breakdown, and transition across domains.
+## Start here
 
----
+- [CUC Canon v0.2 Charter](CHARTER.md) — complete ontology, equations, hypotheses, falsifiers, evidence ladder, governance, and research constitution
+- [Canon registry](canon/README.md) — status rules, symbols, and machine-readable claims
+- [Experimental program](experiments/README.md) — the reference modular-oscillator benchmark
+- [Public FAQ](docs/faq.md) — concise answers to predictable questions and objections
+- [Reddit release draft](docs/reddit-release.md) — a public-facing doorway into the framework
+- [Existing simulations](simulations/README.md) — historical computational prototypes and known limitations
 
-## Core Thesis
+## The v0.2 correction
+
+The original public scaffold used this historical mnemonic:
 
 ```text
 Structure = Coherence × Constraint × Throughput
 ```
 
-Where:
+That expression remains useful as provenance, but it is not a definition or validated law. It leaves several questions unresolved:
 
-- **Coherence** is the alignment, synchronization, or correlation of interacting elements.
-- **Constraint** is the boundary condition that limits possible states.
-- **Throughput** is the sustaining flow of energy, matter, information, attention, or resources.
+- What organization is being preserved?
+- Over what time horizon?
+- Which constraints enable organization and which destroy it?
+- Is throughput too low, adequate, or excessive?
+- Is the system coherent locally, across interfaces, or globally?
+- Does high coherence support viability, or merely synchronized collapse?
 
-In plain language:
+CUC v0.2 therefore defines persistence independently of coherence. Let `I_O(t)` indicate that organization remains within a declared equivalence class and `I_V(t)` indicate that the system remains viable. Continuous persistence over horizon `T` is:
 
-- without coherence, systems dissolve into noise;
-- without constraint, systems disperse into unbounded possibility;
-- without throughput, systems decay or freeze;
-- with all three, systems can form stable, adaptive structure.
-
----
-
-## Key Terms
-
-### Substrate
-
-The medium in which system dynamics occur.
-
-Examples: spacetime, chemical media, cells, neural networks, language, institutions, databases, and software systems.
-
-### Coherence
-
-The degree to which interacting components maintain stable relationships across time.
-
-A basic synchronization-style metric is:
-
-```text
-R(t) = |(1/N) Σ exp(iθᵢ(t))|
+```latex
+\[
+P_T^{\mathrm{cont}}
+=
+\Pr_{\Pi}
+\left[
+I_O(t)I_V(t)=1
+\quad
+\forall t\in[0,T]
+\right]
+\]
 ```
 
-where `R(t)` approaches `1` when phase relationships are highly aligned and approaches `0` when they are incoherent.
+The subscript `\Pi` identifies the initial-condition and perturbation protocol. This makes a persistence claim conditional, measurable, and falsifiable.
 
-### Constraint
+## Conceptual architecture
 
-A boundary condition that limits possible system states.
+```text
+local interaction
+      │
+      ▼
+Fource functional ──► local/interface/global coherence
+                              │
+constraints ──────────────────┤
+throughput adequacy ──────────┤
+boundary quality ─────────────┤──► organizational persistence
+viability requirements ───────┤
+Darkness / degradation ───────┤
+perturbation protocol ─────────┘
+                              │
+                              ▼
+                    failure, repair, or return
+                              │
+                              ▼
+                   OCP bounded-return tests
+```
 
-Examples: physical laws, membranes, geometries, rules, protocols, budgets, interfaces, time limits, social norms, and memory structures.
+The layers have different roles:
 
-### Throughput
+- **Fource** is a proposed local, amplitude-weighted, phase-error-limited interaction functional that may generate coherence in appropriate dynamical models.
+- **Coherence** is a declared relation among selected variables at a specified scale and time window.
+- **CUC proper** evaluates whether organization and viability persist under declared constraints and perturbations.
+- **Darkness** is a derived diagnostic of modeled degradation, including noise, boundary failure, and interface mismatch.
+- **The Orbital Coherence Principle** is a validation protocol for bounded relational return.
 
-The sustaining flow that allows a system to persist or adapt.
+## Canonical distinctions
 
-Examples: energy, nutrients, information, computation, capital, attention, labor, and communication.
+CUC v0.2 distinguishes:
 
-### Coherence Basin
+- state from organization;
+- organization from viability;
+- local coherence from interface and global coherence;
+- coherence generation from coherence persistence;
+- constraint magnitude from constraint fitness;
+- raw throughput from throughput adequacy;
+- useful dissipation from organization-degrading loss;
+- persistence from robustness, resilience, return, adaptation, and transformation;
+- descriptive coherence from ethical value.
 
-A stable attractor region in system state space where a pattern can persist.
+These distinctions are meant to prevent circular definitions and overclaiming.
 
-### Threshold Transition
+## Initial hypothesis program
 
-A phase shift that occurs when coherence, constraint, or throughput crosses a critical range.
+The Charter registers ten testable hypotheses. The first experimental season prioritizes five:
 
-### Interface Dominance
+1. **Local compatibility:** amplitude-weighted phase compatibility predicts subsequent coherence beyond its component variables.
+2. **Coherence and survival:** relevant coherence measures improve held-out survival prediction beyond topology and energy balance.
+3. **Constraint fitness:** organization-compatible constraint architecture predicts persistence better than raw constraint magnitude.
+4. **Throughput window:** throughput-dependent systems exhibit viable operating regions rather than unlimited monotonic benefit.
+5. **Interface bottleneck:** interface coherence predicts failures hidden by mean local coherence.
 
-A condition where boundaries between systems become the main sites of transformation, failure, adaptation, or coherence gain.
+Each claim has a falsifier. Machine-readable records live in [`canon/claims.yml`](canon/claims.yml).
 
----
+## Evidence status
 
-## Minimal Formal Backbone
+| Layer | Current status |
+|---|---|
+| Root invariant | Canonical organizing commitment |
+| Ontology and persistence definitions | Draft formal specification |
+| Fource Sub-Theorem | Conditional hypothesis-bearing mechanism |
+| Darkness Functional | Derived diagnostic requiring calibration |
+| Existing oscillator scripts | Toy computational prototypes |
+| Reference benchmark | Designed; implementation pending |
+| Cross-domain applications | Mappings requiring independent evidence |
+| Universal-law claim | Not made |
+| Empirical validation | Not yet achieved |
+| Peer review | Not yet completed |
 
-CUC begins with three linked claims:
+Mathematical notation alone does not elevate evidence. A formally specified model remains formal until it survives reproducible tests and comparison with simpler alternatives.
 
-1. **Coherence condition**
+## What CUC is not
 
-   ```text
-   R(t) > R_critical
-   ```
+CUC is not currently:
 
-   A structure can persist only when coherence remains above a domain-specific critical threshold.
+- a newly discovered fundamental force;
+- proof that all systems are oscillators;
+- a replacement for control theory, synchronization theory, thermodynamics, network science, biology, psychology, sociology, or survival analysis;
+- evidence for consciousness, portals, or speculative cosmology;
+- a claim that coherence is always good;
+- an empirically established universal law.
 
-2. **Throughput condition**
+Coherent systems can be brittle, coercive, harmful, or synchronized toward failure. Ethical value must be assessed independently.
 
-   ```text
-   P_in ≥ P_diss
-   ```
+## Reference benchmark
 
-   Sustaining input must meet or exceed dissipative loss.
+The next core experiment is a modular oscillator benchmark that manipulates independently:
 
-3. **Constrained dynamics condition**
+- ordinary coupling;
+- Fource transformation and regularization;
+- constraint strength and topology;
+- throughput or resource availability;
+- noise and heterogeneity;
+- delay and dissipation;
+- boundary leakage and interface error;
+- perturbation amplitude, duration, and target.
 
-   ```text
-   dX/dt = F(X,t) + ΓC(X)
-   ```
+Primary outcomes include global, local, and interface coherence; organization distance; survival; failure time; return time; and repair cost. Ordinary Kuramoto-style coupling, amplitude-only weighting, phase-error-only weighting, topology-only models, and flexible statistical predictors serve as competing baselines.
 
-   System evolution depends on internal dynamics `F(X,t)` plus a constraint operator `C(X)` scaled by coupling strength `Γ`.
+See [experiments/README.md](experiments/README.md).
 
-This is not yet a closed theory. It is a research scaffold for building measurable models.
+## Existing simulations
 
----
+The repository contains April 2026 oscillator prototypes. They demonstrate early computational directions but do not validate CUC. Known limitations include:
 
-## Cross-Domain Examples
+- throughput is implemented as a multiplier on coupling and is therefore confounded with coupling strength;
+- constraint is implemented as an alignment term, partly building the expected effect into the model;
+- most results use one global phase-order parameter;
+- current parameter thresholds are illustrative;
+- the prototypes have not yet undergone systematic held-out validation or cross-model replication.
 
-- **Physics:** crystal lattices, oscillators, phase transitions.
-- **Chemistry:** molecular bonding, reaction networks, autocatalysis.
-- **Biology:** cells, membranes, morphogenesis, homeostasis.
-- **Neuroscience:** neural synchronization, cognitive binding, attention.
-- **Ecology:** stable ecosystems, niche boundaries, succession dynamics.
-- **Technology:** network protocols, databases, distributed systems, AI memory.
-- **Society:** institutions, laws, trust networks, cultural continuity.
+Their purpose in v0.2 is provenance and baseline reconstruction. They will be retained while the reference benchmark is developed.
 
-The purpose of CUC is not to flatten these domains into one explanation. The purpose is to identify shared structural grammar while preserving domain-specific mechanisms.
+### Run the historical prototypes
 
----
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+export MPLBACKEND=Agg
+python simulations/cuc_simulation_v1_coherence_emergence.py
+```
 
-## What This Is
+On Windows PowerShell, activate with:
 
-CUC is:
+```powershell
+.venv\Scripts\Activate.ps1
+```
 
-- a meta-framework for structure formation and persistence;
-- a cross-domain research program;
-- a candidate vocabulary for comparing complex systems;
-- a foundation for simulation, measurement, and falsifiable testing.
-
-## What This Is Not
-
-CUC is not:
-
-- a new fundamental physical force;
-- a replacement for physics, biology, neuroscience, sociology, or systems theory;
-- proof that all systems are the same;
-- a complete mathematical theory;
-- a claim that coherence is always good.
-
-Coherence can support life, intelligence, and cooperation. It can also support lock-in, rigidity, capture, and harmful institutional stability. Constraint must therefore be evaluated by outcome, reversibility, adaptability, and ethical context.
-
----
-
-## Research Questions
-
-CUC is designed to support testable questions such as:
-
-1. Can coherence metrics predict the persistence or collapse of a system near transition points?
-2. Do interface regions consistently dominate transformation across physical, biological, and social systems?
-3. Can constraint changes shift a system from one coherence basin to another?
-4. Can AI memory systems become more useful when organized by chronology, provenance, contradiction tracking, and coherence state?
-5. Can a general coherence-under-constraint metric improve comparison across domains without erasing domain-specific mechanisms?
-
----
-
-## Initial Predictions
-
-CUC predicts that:
-
-- coherence fluctuations should increase near threshold transitions;
-- stable systems should occupy measurable attractor basins;
-- interfaces should disproportionately shape system transformation;
-- systems with strong coherence but poor throughput should become brittle;
-- systems with high throughput but weak constraint should disperse;
-- systems with constraint but weak coherence should become fragmented or coercive;
-- searchable chronology and provenance should improve long-term AI memory coherence.
-
----
-
-## Repository Structure
+## Repository map
 
 ```text
 .
 ├── README.md
-├── LICENSE
-├── CITATION.cff
+├── CHARTER.md
+├── CHANGELOG.md
 ├── VERSION.md
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── canon/
+│   ├── README.md
+│   ├── symbols.yml
+│   └── claims.yml
 ├── docs/
 │   ├── paper.md
 │   ├── glossary.md
-│   ├── case_studies/
-│   │   └── README.md
-│   └── figures/
-│       └── README.md
-└── simulations/
-    ├── coherence_models/
-    │   └── README.md
-    └── constraint_tests/
-        └── README.md
+│   ├── faq.md
+│   └── reddit-release.md
+├── experiments/
+│   └── README.md
+├── scripts/
+│   └── validate_repo.py
+├── simulations/
+└── .github/
+    ├── ISSUE_TEMPLATE/
+    ├── workflows/
+    └── PULL_REQUEST_TEMPLATE.md
 ```
 
----
+## Contributing and critique
 
-## Current Status
+CUC is being opened for rigorous criticism, not protected from it. Useful contributions include:
 
-This repository is currently at **v0.1.0**.
+- identifying circular or unmeasurable definitions;
+- supplying stronger rival models;
+- reproducing or breaking computational results;
+- proposing independent operationalizations;
+- documenting negative results;
+- correcting mathematical, statistical, or domain errors;
+- improving the ethical and governance boundaries.
 
-The framework is:
-
-- conceptually drafted;
-- bounded against overclaiming;
-- ready for computational modeling;
-- not yet empirically validated;
-- not yet peer reviewed.
-
----
-
-## Next Milestones
-
-1. Build a simple oscillator-based coherence simulation.
-2. Define a minimal cross-domain coherence score.
-3. Add AI-memory case studies focused on chronology, retrieval, provenance, and contradiction repair.
-4. Compare CUC predictions against existing models in complex systems theory.
-5. Prepare a preprint-style paper for external critique.
-
----
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Formal claims should use the claim issue template and name a falsifier.
 
 ## Citation
 
-Use `CITATION.cff` for citation metadata.
+Citation metadata is provided in [`CITATION.cff`](CITATION.cff).
 
-Suggested short citation:
+Suggested draft citation:
 
-> Fry, G. (2026). *Coherence Under Constraint: A Unified Framework for Emergent Structure Across Systems*.
+> Fry, G. (2026). *Coherence Under Constraint: Foundational Charter and Research Program* (v0.2.0-draft.1). The Fource Principles.
+
+## License
+
+Code and repository documentation are released under the [MIT License](LICENSE), unless a file states otherwise.
 
 ---
 
-## Final Statement
-
-Reality is not merely random structure.
-
-It is structured persistence under constraint.
+> **No coherence without a relation. No persistence without an organization. No constraint without an admissible set. No survival without a horizon. No theory without a falsifier.**

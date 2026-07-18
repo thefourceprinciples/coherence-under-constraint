@@ -1,0 +1,69 @@
+name: Experiment
+description: Propose a reproducible test of one or more registered CUC claims.
+title: "[EXPERIMENT] "
+body:
+  - type: input
+    id: claims
+    attributes:
+      label: Claim identifiers
+      placeholder: CUC-H1, CUC-H5
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+    validations:
+      required: true
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Manipulations and design
+      description: Keep coupling, constraint, throughput, noise, and topology independent when the hypothesis requires it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcomes
+    attributes:
+      label: Outcome measures
+      description: Include organization, viability, local/interface/global coherence, survival, and return where relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: baselines
+    attributes:
+      label: Baselines and ablations
+    validations:
+      required: true
+
+  - type: textarea
+    id: falsifier
+    attributes:
+      label: Result that would count against the claim
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducibility
+    attributes:
+      label: Reproducibility plan
+      description: State configuration, seed policy, environment, outputs, uncertainty, and held-out evaluation.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Integrity checks
+      options:
+        - label: I will retain null and negative results.
+          required: true
+        - label: I will distinguish illustrative outputs from simulated or empirical results.
+          required: true
+        - label: I will report deviations from the preregistered plan.
+          required: true
+
