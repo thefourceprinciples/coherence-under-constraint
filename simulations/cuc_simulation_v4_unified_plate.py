@@ -1,53 +1,63 @@
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+"""Combine the four historical CUC prototype figures into one plate."""
+
 from pathlib import Path
 
-outdir = Path("/mnt/data")
-sim1 = outdir / "cuc_simulation_v1_plot.png"
-sim2 = outdir / "cuc_simulation_v2_phase_diagram.png"
-sim3a = outdir / "cuc_simulation_v3_throughput_dissipation.png"
-sim3b = outdir / "cuc_simulation_v3_survival_boundary.png"
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
 
-plate_path = outdir / "cuc_simulation_v4_unified_figure.png"
 
-imgs = [mpimg.imread(str(p)) for p in [sim1, sim2, sim3a, sim3b]]
-
-fig = plt.figure(figsize=(14, 12))
-
-axes = [
-    plt.subplot(2, 2, 1),
-    plt.subplot(2, 2, 2),
-    plt.subplot(2, 2, 3),
-    plt.subplot(2, 2, 4),
+OUTPUT_DIR = Path(__file__).resolve().parent
+INPUTS = [
+    OUTPUT_DIR / "figure_1A_coherence_emergence.png",
+    OUTPUT_DIR / "figure_1B_phase_diagram.png",
+    OUTPUT_DIR / "figure_1C_throughput_map.png",
+    OUTPUT_DIR / "figure_1D_survival_boundary.png",
 ]
+PLATE_PATH = OUTPUT_DIR / "cuc_simulation_v4_unified_figure.png"
 
+missing = [path.name for path in INPUTS if not path.is_file()]
+if missing:
+    raise FileNotFoundError(
+        "Generate the prerequisite figures before building the unified plate: "
+        + ", ".join(missing)
+    )
+
+images = [mpimg.imread(path) for path in INPUTS]
+
+figure, axes = plt.subplots(2, 2, figsize=(14, 12))
 titles = [
     "Figure 1A. Coherence Emergence Under Constraint",
     "Figure 1B. Coupling–Constraint Phase Diagram",
-    "Figure 1C. Throughput–Dissipation Survival Map",
-    "Figure 1D. Survival Boundary",
+    "Figure 1C. Throughput–Dissipation Coherence Map",
+    "Figure 1D. Coherence Threshold Boundary",
 ]
 
-for ax, img, title in zip(axes, imgs, titles):
-    ax.imshow(img)
-    ax.set_title(title)
-    ax.axis("off")
+for axis, image, title in zip(axes.flat, images, titles):
+    axis.imshow(image)
+    axis.set_title(title)
+    axis.axis("off")
 
-fig.suptitle(
-    "CUC Simulation 4: Unified Computational Figure Set",
+figure.suptitle(
+    "CUC Historical Prototypes: Unified Computational Figure Set",
     fontsize=18,
-    y=0.98
+    y=0.98,
 )
 
 caption = (
-    "Unified result plate for the Coherence Under Constraint framework. "
-    "1A shows time-domain coherence emergence in three regimes. "
-    "1B maps sustained coherence across coupling strength K and constraint strength B. "
-    "1C maps sustained coherence across throughput E and dissipation D. "
-    "1D estimates the minimum throughput required to maintain coherence above threshold as dissipation rises."
+    "Historical toy-model outputs. Figure 1A shows time-domain phase coherence; "
+    "1B sweeps coupling and an alignment-style constraint; 1C sweeps a throughput "
+    "multiplier and noise proxy; 1D extracts an illustrative coherence threshold. "
+    "These figures do not constitute empirical validation of CUC."
 )
-fig.text(0.5, 0.02, caption, ha="center", va="bottom", wrap=True, fontsize=10)
-
-plt.tight_layout()(plate_path, dpi=240, bbox_inches="tight")
-plt.savefig("figure_1D_survival_boundary.png", dpi=300)
-plt.show()(rect=[0, 0.05, 1, 0.95])
+figure.text(0.5, 0.02, caption, ha="center", va="bottom", wrap=True, fontsize=10)
+figure.subplots_adjust(
+    left=0.03,
+    right=0.97,
+    top=0.88,
+    bottom=0.10,
+    hspace=0.28,
+    wspace=0.08,
+)
+figure.savefig(PLATE_PATH, dpi=240)
+print("Saved image to:", PLATE_PATH)
+plt.show()
