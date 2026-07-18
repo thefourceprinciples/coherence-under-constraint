@@ -3,7 +3,8 @@
 ## v0.2.0-draft.1 — Charter reformalization
 
 **Draft date:** 2026-07-18  
-**Status:** Proposed for ratification; not a final release
+**Status:** Permanent public draft proposed for ratification; not a final release  
+**Canonical snapshot:** `58fedab3b866fbcaceb12bd62ada618c63dde811`
 
 This draft reformalizes CUC around organizational survival rather than treating coherence as persistence itself.
 
@@ -46,4 +47,3 @@ This draft reformalizes CUC around organizational survival rather than treating 
 **Release date:** 2026-06-06
 
 Established the first public README, working paper, glossary, citation metadata, research questions, and simulation scaffolds. The release was explicitly conceptual, unvalidated, and not peer reviewed.
-
