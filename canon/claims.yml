@@ -1,0 +1,165 @@
+schema_version: "0.1"
+canon_version: "0.2.0-draft.1"
+last_reviewed: "2026-07-18"
+evidence_scale:
+  E0: "Metaphorical intuition"
+  E1: "Formal specification"
+  E2: "Analytical or computational result"
+  E3: "Controlled synthetic experiment"
+  E4: "Cross-model replication"
+  E5: "Domain observation"
+  E6: "Prospective prediction"
+  E7: "Intervention or engineering validation"
+  E8: "Multi-domain structural replication"
+claims:
+  - claim_id: CUC-H1
+    title: "Local compatibility hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Phase-coupled oscillator networks"
+      domain: "Reference synthetic benchmark"
+    claim: >-
+      Within an appropriate stable phase-coupled regime, increased
+      amplitude-weighted phase compatibility predicts increased subsequent
+      phase coherence.
+    prediction: >-
+      Lagged aggregate Fource improves held-out prediction of later global or
+      interface coherence beyond amplitude, phase difference, coupling, and
+      topology entered separately.
+    null_model: "Matched ordinary coupling with separate amplitude and phase terms"
+    falsifier: >-
+      Aggregate Fource provides no reproducible out-of-sample gain, or its
+      effect reverses after preregistered confounds are controlled.
+    equations: [FOU-4, FOU-5, EXP-2]
+    evidence_level: E1
+
+  - claim_id: CUC-H2
+    title: "Coherence-survival hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Dynamical systems with declared organization and viability"
+      domain: "Reference synthetic benchmark"
+    claim: >-
+      Organization-relevant coherence predicts survival under perturbation
+      after topology, energy balance, and constraint fitness are controlled.
+    prediction: >-
+      Preregistered local, interface, or global coherence measures improve
+      calibrated held-out survival prediction.
+    null_model: "Topology and energy-balance model without coherence terms"
+    falsifier: >-
+      Coherence terms add no calibrated out-of-sample predictive value or are
+      fully replaced by simpler variables.
+    equations: [CUC-25, CUC-27]
+    evidence_level: E1
+
+  - claim_id: CUC-H3
+    title: "Constraint-fitness hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Systems with measurable admissible transition sets"
+      domain: "Reference synthetic benchmark"
+    claim: "Constraint fitness predicts persistence better than raw constraint magnitude."
+    prediction: >-
+      An independently estimated organization-compatible constraint measure
+      outperforms constraint intensity alone across environments.
+    null_model: "Raw constraint magnitude"
+    falsifier: >-
+      Magnitude performs as well or better, or fitness cannot be measured
+      without embedding the survival outcome.
+    equations: [CUC-10, CUC-11]
+    evidence_level: E1
+
+  - claim_id: CUC-H4
+    title: "Throughput-window hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Throughput-dependent open systems"
+      domain: "Reference synthetic benchmark"
+    claim: "Persistence is often maximized within an operating region rather than at maximal throughput."
+    prediction: "Independently manipulated throughput has a preregistered non-monotonic relation with survival or organization."
+    null_model: "Monotonic throughput benefit or no throughput effect"
+    falsifier: "The relationship is reliably monotonic or null throughout the claimed regime."
+    equations: [CUC-12, CUC-13]
+    evidence_level: E1
+
+  - claim_id: CUC-H5
+    title: "Interface-bottleneck hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Modular systems"
+      domain: "Reference synthetic benchmark"
+    claim: "Interface compatibility explains failures not predicted by mean local coherence."
+    prediction: "Interface measures improve failure localization and held-out survival prediction while module coherence remains high."
+    null_model: "Mean local or global coherence without interface terms"
+    falsifier: "Interface measures provide no incremental prediction."
+    equations: [CUC-20, CUC-21, CUC-37, CUC-38]
+    evidence_level: E1
+
+  - claim_id: CUC-H6
+    title: "Darkness-hazard hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Systems with independently measured degradation terms"
+      domain: "Synthetic and later domain benchmarks"
+    claim: "A preregistered Darkness Functional predicts failure hazard beyond any single component term."
+    prediction: "The composite improves calibrated held-out hazard prediction and remains stable across replications."
+    null_model: "Separate noise, boundary, and interface terms"
+    falsifier: "The composite is unstable, post hoc, or adds no predictive value."
+    equations: [DAR-2, CUC-32, CUC-33]
+    evidence_level: E1
+
+  - claim_id: CUC-H7
+    title: "Bounded-return hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Systems with meaningful bounded relational recurrence"
+      domain: "Synthetic benchmark"
+    claim: "The complete OCP gate predicts reliable organizational return better than apparent periodicity alone."
+    prediction: "The full gate improves return probability, time, and post-return survival prediction."
+    null_model: "Spectral periodicity or recurrence alone"
+    falsifier: "The full gate has no advantage over simpler recurrence measures."
+    equations: [OCP-1, OCP-2, OCP-4]
+    evidence_level: E1
+
+  - claim_id: CUC-H8
+    title: "Multiscale-divergence hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Hierarchical or modular systems"
+      domain: "Synthetic benchmark"
+    claim: "Divergence among local, interface, and global coherence is an early-warning signal for selected failures."
+    prediction: "Multiscale features improve lead time, discrimination, or calibration beyond global coherence alone."
+    null_model: "Global coherence only"
+    falsifier: "Multiscale divergence provides no reproducible improvement."
+    equations: [CUC-19, CUC-21, CUC-39]
+    evidence_level: E1
+
+  - claim_id: CUC-H9
+    title: "False-coherence hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Systems with separable coherence, viability, and challenge outcomes"
+      domain: "Synthetic benchmark"
+    claim: "High coherence without perturbation robustness, viability, or competence forms a detectable regime."
+    prediction: "Systems matched on baseline coherence separate under controlled challenge using robustness and viability metrics."
+    null_model: "Baseline coherence alone"
+    falsifier: "Baseline coherence predicts challenged survival as well as the expanded profile."
+    equations: [CUC-16, CUC-34A]
+    evidence_level: E1
+
+  - claim_id: CUC-H10
+    title: "Adaptive-constraint hypothesis"
+    status: hypothesis
+    scope:
+      model_class: "Systems able to alter constraint parameters"
+      domain: "Future adaptive benchmark"
+    claim: >-
+      Bounded adaptive constraint systems persist across a broader
+      environmental range than fixed-constraint systems without increasing
+      catastrophic-tail risk beyond the declared criterion.
+    prediction: "Adaptation improves survival across regime shifts while preserving bounded failure severity."
+    null_model: "Matched fixed-constraint systems"
+    falsifier: "Adaptation provides no range benefit or creates unacceptable tail failures."
+    equations: [CUC-43]
+    evidence_level: E1
+
