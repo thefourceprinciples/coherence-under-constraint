@@ -1,23 +1,54 @@
 import numpy as np
 from scipy.special import spherical_jn
 
-chi_star = 14000.0
-ells = np.arange(2,31)
-nk = 120
-k = np.logspace(-5,-2,nk)
-dlnk = np.gradient(np.log(k))
-Delta = np.array([0.2*spherical_jn(l,k*chi_star) for l in ells])
-A = 4*np.pi*(Delta**2)*dlnk[None,:]
 
-As, ns, kp = 2.1e-9, 0.965, 0.05
-P = As*(k/kp)**(ns-1)
-Cl = A @ P
-sigma_cv = np.sqrt(2/(2*ells+1))*Cl
-Aw = A/sigma_cv[:,None]
+CHI_STAR_MPC = 14_000.0
+ELLS = np.arange(2, 31)
+N_K = 120
+K_MPC_INV = np.logspace(-5, -2, N_K)
 
-U,s,Vh = np.linalg.svd(Aw, full_matrices=True)
-print("shape:", Aw.shape)
-print("rank:", np.linalg.matrix_rank(Aw))
-print("kernel dimension:", nk-np.linalg.matrix_rank(Aw))
-print("condition number:", s[0]/s[-1])
-print("relative singular values:", s/s[0])
+
+def build_whitened_operator():
+    """Return the discretized Sachs-Wolfe operator after cosmic-variance whitening."""
+    dlnk = np.gradient(np.log(K_MPC_INV))
+    transfer = np.array(
+        [0.2 * spherical_jn(ell, K_MPC_INV * CHI_STAR_MPC) for ell in ELLS]
+    )
+    operator = 4.0 * np.pi * transfer**2 * dlnk[None, :]
+
+    amplitude, tilt, pivot = 2.1e-9, 0.965, 0.05
+    primordial_spectrum = amplitude * (K_MPC_INV / pivot) ** (tilt - 1.0)
+    angular_spectrum = operator @ primordial_spectrum
+    sigma_cosmic_variance = (
+        np.sqrt(2.0 / (2.0 * ELLS + 1.0)) * angular_spectrum
+    )
+    return operator / sigma_cosmic_variance[:, None]
+
+
+def main():
+    whitened_operator = build_whitened_operator()
+    singular_values = np.linalg.svd(whitened_operator, compute_uv=False)
+
+    # Match NumPy's default matrix-rank convention, but expose the tolerance so
+    # the reported numerical kernel is reproducible and correctly qualified.
+    rank_tolerance = (
+        max(whitened_operator.shape)
+        * np.finfo(singular_values.dtype).eps
+        * singular_values[0]
+    )
+    rank = int(np.count_nonzero(singular_values > rank_tolerance))
+    relative_singular_values = singular_values / singular_values[0]
+
+    print("shape:", whitened_operator.shape)
+    print("rank tolerance:", rank_tolerance)
+    print("numerical rank:", rank)
+    print("numerical kernel dimension:", N_K - rank)
+    print(
+        "transmitted-space condition number:",
+        singular_values[0] / singular_values[rank - 1],
+    )
+    print("relative singular values:", relative_singular_values)
+
+
+if __name__ == "__main__":
+    main()
