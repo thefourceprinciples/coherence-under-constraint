@@ -1,0 +1,50 @@
+{
+  "experiment_id": "FR-FOURCE-FORMAL-007A",
+  "status": "IMPLEMENTATION_ONLY_NOT_EVIDENCE",
+  "master_seeds": [1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029],
+  "nodes": 12,
+  "burn_in": 1000,
+  "retained_steps": 20000,
+  "blocks": {"A": [0,1,2,3], "B": [4,5,6,7], "E": [8,9,10,11]},
+  "weights": {
+    "within_A": 1.2,
+    "within_B": 1.2,
+    "A_B": 0.7,
+    "O_E": 0.15,
+    "within_E_uniform": [-0.2, 0.2],
+    "construction_jitter_sigma": 0.05
+  },
+  "pseudocount": 0.5,
+  "train_fraction": 0.7,
+  "majority_rule": "strict_majority_ties_to_zero",
+  "intervention_contexts": 512,
+  "m4_horizon": 3,
+  "m5_sigmas": [0.05, 0.10, 0.20],
+  "m5_copies_per_sigma": 20,
+  "m5_burn_in": 500,
+  "m5_retained_steps": 4000,
+  "rewire_fraction_internal_O": 0.40,
+  "top_fraction": 0.05,
+  "primary_thresholds": {
+    "P1_pair_wins": 24,
+    "P1_median_difference": 0.05,
+    "P2_recovery_count": 24,
+    "P3_invariance_count": 27,
+    "P3_percentile_tolerance": 2.0,
+    "P4_recovery_count": 24,
+    "P4_max_percentile_loss": 10.0,
+    "P5_recovery_count": 24,
+    "P5_min_percentile_loss": 20.0,
+    "P6_pair_wins": 24
+  },
+  "smoke_mode": {
+    "evidentiary": false,
+    "seeds": [1000],
+    "burn_in": 50,
+    "retained_steps": 300,
+    "intervention_contexts": 32,
+    "m5_copies_per_sigma": 1,
+    "m5_burn_in": 20,
+    "m5_retained_steps": 100
+  }
+}
