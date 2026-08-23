@@ -79,4 +79,25 @@ No threshold changes, seed deletion, null weakening, metric addition, planted-bo
 
 Artifact: `FR-FOURCE-FORMAL/SWEEP_007_PREREGISTRATION.md`
 
-Next: implement the frozen bench without altering its primary thresholds, preserve the first raw run append-only, and let the result determine Sweep 008.
+## 007A — Frozen Bench Implementation
+
+Result: the preregistered generator, candidate search, five metrics, baselines, result manifests, and smoke/full modes were implemented on a dedicated branch and draft PR. No full evidentiary run was executed.
+
+Implementation status at handoff: requires verification before first run.
+
+## 007B — Verification and First-Run Readiness
+
+Result: the first CI run exposed a runtime dependency defect (NumPy not installed by CI), while repository validation and compilation passed. Audit also found two preregistration/code mismatches before any evidentiary run: P3 was not actually scored, and P4 applied replacement for the full condition instead of at retained t=10,000.
+
+Corrections made before first full execution:
+- runtime requirements added to CI;
+- corrected 007B runner executes P3 isomorphic relabeling;
+- P4 now changes node-local bias at the retained midpoint and evaluates the post-change half;
+- external observation-label resampling is recorded as provenance metadata;
+- simple-coupling strong-falsification comparison is operationalized before seeing full results;
+- all frozen P1–P6 thresholds remain unchanged;
+- CI smoke mode remains explicitly NON-EVIDENTIARY.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_007B_VERIFICATION.md`
+
+Next gate: CI + corrected smoke must pass, then freeze the exact implementation SHA and execute the first full append-only run. Only that result may open Sweep 008.
