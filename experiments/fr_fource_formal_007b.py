@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
-"""FR-FOURCE-FORMAL-007B verification/corrected execution runner.
+"""FR-FOURCE-FORMAL-007B corrected execution runner.
 
-This runner preserves Sweep 007 thresholds while correcting two implementation
-mismatches found during verification of 007A:
-
-1. P3 is actually executed as an isomorphic node relabeling test.
-2. P4 applies the node-local bias replacement at the retained-trajectory midpoint
-   and evaluates the post-change segment, rather than simulating the whole run
-   under the replacement bias.
-
-Smoke mode is NON-EVIDENTIARY. Full mode is the candidate authoritative first
-execution path only after CI and code review pass.
+This runner preserves the frozen Sweep 007 hypotheses and thresholds while
+repairing implementation-fidelity defects found before any evidentiary run.
+Smoke mode is NON-EVIDENTIARY. Full mode refuses a dirty checkout.
 """
 from __future__ import annotations
 
@@ -41,6 +34,22 @@ def git_sha() -> str:
         return "UNKNOWN"
 
 
+def tracked_tree_clean() -> bool:
+    """True only when tracked files exactly match HEAD.
+
+    Untracked result output is permitted because the runner creates it after
+    this check; tracked implementation/config edits are not.
+    """
+    try:
+        status = subprocess.check_output(
+            ["git", "status", "--porcelain", "--untracked-files=no"],
+            cwd=ROOT, text=True, stderr=subprocess.DEVNULL,
+        )
+        return status.strip() == ""
+    except Exception:
+        return False
+
+
 def simulate_midpoint_replacement(
     W: np.ndarray,
     seed: int,
@@ -48,12 +57,7 @@ def simulate_midpoint_replacement(
     retained: int,
     replacement_bias: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Continuous trajectory with bias replacement at retained midpoint.
-
-    Returns (full retained trajectory, post-change half). The random external
-    node-label reassignment required by the preregistration is recorded by the
-    caller as metadata only: labels are names, not dynamical variables.
-    """
+    """Continuous trajectory with bias replacement at retained midpoint."""
     rng = np.random.default_rng(seed)
     n = W.shape[0]
     x = rng.integers(0, 2, size=n, dtype=np.uint8)
@@ -78,6 +82,142 @@ def canonicalize(mask: np.ndarray) -> np.ndarray:
     return m
 
 
+def uninterrupted_retention_score(macro: np.ndarray, horizon: int) -> float:
+    """M4: macrostate remains unchanged at every step through horizon."""
+    if horizon < 1 or len(macro) <= horizon:
+        return 0.0
+    base = macro[:-horizon]
+    retained = np.ones(len(base), dtype=bool)
+    for step in range(1, horizon + 1):
+        retained &= macro[step:step + len(base)] == base
+    observed = float(np.mean(retained))
+    freqs = np.bincount(macro, minlength=4).astype(float)
+    freqs /= freqs.sum()
+    # Chance that horizon subsequent independent draws all equal the initial draw.
+    chance = float(np.sum(freqs ** (horizon + 1)))
+    return observed - chance
+
+
+def intervention_matrix(
+    W: np.ndarray,
+    X: np.ndarray,
+    seed: int,
+    contexts: int,
+    bias: np.ndarray | None = None,
+) -> np.ndarray:
+    """One-step intervention proxy under the actual condition-specific bias."""
+    rng = np.random.default_rng(seed + 200_000)
+    n = W.shape[0]
+    b = np.zeros(n) if bias is None else np.asarray(bias, dtype=float)
+    idx = rng.choice(len(X), size=min(contexts, len(X)), replace=False)
+    base = X[idx].astype(float)
+    E = np.zeros((n, n), dtype=float)
+    for src in range(n):
+        x0, x1 = base.copy(), base.copy()
+        x0[:, src] = 0.0
+        x1[:, src] = 1.0
+        p0 = core.sigmoid(b + (2.0 * x0 - 1.0) @ W.T)
+        p1 = core.sigmoid(b + (2.0 * x1 - 1.0) @ W.T)
+        for tgt in range(n):
+            if tgt != src:
+                E[tgt, src] = core.bernoulli_js(
+                    float(p0[:, tgt].mean()), float(p1[:, tgt].mean())
+                )
+    return E
+
+
+def score_static_metrics(
+    W: np.ndarray,
+    X: np.ndarray,
+    partitions: np.ndarray,
+    cfg: dict,
+    seed: int,
+    bias: np.ndarray | None = None,
+) -> dict[str, np.ndarray]:
+    alpha = float(cfg["pseudocount"])
+    cmi = core.lag_cmi_matrix(X, alpha)
+    inter = intervention_matrix(
+        W, X, seed, int(cfg["intervention_contexts"]), bias=bias
+    )
+    m1 = np.empty(len(partitions)); m2 = np.empty(len(partitions))
+    m3 = np.empty(len(partitions)); m4 = np.empty(len(partitions))
+    for k, mask in enumerate(partitions):
+        macro = core.strict_majority_macro(X, mask)
+        m1[k] = core.partition_contrast(cmi, mask)
+        m2[k] = -core.markov_nll(macro, float(cfg["train_fraction"]), alpha)
+        m3[k] = core.partition_contrast(inter, mask)
+        m4[k] = uninterrupted_retention_score(macro, int(cfg["m4_horizon"]))
+    return {"M1": m1, "M2": m2, "M3": m3, "M4": m4}
+
+
+def perturbational_robustness(
+    W: np.ndarray,
+    X: np.ndarray,
+    partitions: np.ndarray,
+    cfg: dict,
+    seed: int,
+    bias: np.ndarray | None = None,
+) -> np.ndarray:
+    """M5 under the actual condition-specific bias."""
+    alpha = float(cfg["pseudocount"])
+    base_tm = np.asarray([
+        core.transition_matrix(core.strict_majority_macro(X, mask), alpha)
+        for mask in partitions
+    ])
+    divergence = np.zeros(len(partitions), dtype=float)
+    count = 0
+    for sidx, sigma in enumerate(cfg["m5_sigmas"]):
+        for copy in range(int(cfg["m5_copies_per_sigma"])):
+            rseed = seed + 300_000 + sidx * 10_000 + copy
+            rng = np.random.default_rng(rseed)
+            Wp = W + rng.normal(0.0, float(sigma), size=W.shape)
+            np.fill_diagonal(Wp, 0.0)
+            Xp = core.simulate(
+                Wp, rseed, int(cfg["m5_burn_in"]),
+                int(cfg["m5_retained_steps"]), bias=bias
+            )
+            for k, mask in enumerate(partitions):
+                tm = core.transition_matrix(core.strict_majority_macro(Xp, mask), alpha)
+                divergence[k] += core.js_discrete(base_tm[k], tm)
+            count += 1
+    return -divergence / max(count, 1)
+
+
+def evaluate(
+    W: np.ndarray,
+    X: np.ndarray,
+    partitions: np.ndarray,
+    cfg: dict,
+    seed: int,
+    bias: np.ndarray | None = None,
+) -> dict:
+    scores = score_static_metrics(W, X, partitions, cfg, seed, bias=bias)
+    scores["M5"] = perturbational_robustness(
+        W, X, partitions, cfg, seed, bias=bias
+    )
+    ranks = {k: core.ranks_desc(v) for k, v in scores.items()}
+    fam = core.family_ranks(ranks)
+    cons = core.consensus_rank(fam)
+    top_n = max(1, math.ceil(len(partitions) * float(cfg["top_fraction"])))
+    planted = core.planted_mask(cfg["nodes"])
+    pidx = next(i for i, m in enumerate(partitions) if np.array_equal(m, planted))
+    return {
+        "scores": scores,
+        "ranks": ranks,
+        "family_ranks": fam,
+        "consensus": cons,
+        "top_n": top_n,
+        "planted_index": pidx,
+        "planted_consensus_rank": float(cons[pidx]),
+        "planted_consensus_percentile": 100.0 * float(cons[pidx]) / len(partitions),
+        "planted_in_top_set": bool(float(cons[pidx]) <= top_n),
+        "jaccard": core.mean_pairwise_jaccard(fam, top_n),
+        "kendall": core.family_kendall(fam),
+        "coupling_rank": int(core.ranks_desc(core.coupling_baseline(W, partitions))[pidx]),
+        "correlation_rank": int(core.ranks_desc(core.correlation_baseline(X, partitions))[pidx]),
+    }
+
+
 def relabel_case(
     W: np.ndarray,
     X: np.ndarray,
@@ -85,20 +225,12 @@ def relabel_case(
     cfg: dict,
     partitions: np.ndarray,
 ) -> dict:
-    """P3: evaluate an isomorphic node relabeling.
-
-    perm[new_index] = old_index. The observed trajectory is permuted rather than
-    resimulated so the data-generating realization is identical up to labels.
-    M5 still draws fresh isotropic perturbations, which are distributionally
-    permutation-invariant but not numerically identical; the preregistered ±2
-    percentile tolerance therefore remains meaningful.
-    """
+    """P3: evaluate an isomorphic node relabeling of the same realization."""
     rng = np.random.default_rng(seed + 600_000)
     perm = rng.permutation(cfg["nodes"])
     Wp = W[np.ix_(perm, perm)]
     Xp = X[:, perm]
-    result = core.evaluate(Wp, Xp, partitions, cfg, seed + 600_000)
-
+    result = evaluate(Wp, Xp, partitions, cfg, seed + 600_000)
     old_target = core.planted_mask(cfg["nodes"])
     new_target = canonicalize(old_target[perm])
     pidx = next(i for i, m in enumerate(partitions) if np.array_equal(m, new_target))
@@ -108,10 +240,6 @@ def relabel_case(
         "target_new_labels": new_target.tolist(),
         "consensus_percentile": percentile,
     }
-
-
-def eval_condition(W: np.ndarray, X: np.ndarray, cfg: dict, partitions: np.ndarray, seed: int) -> dict:
-    return core.evaluate(W, X, partitions, cfg, seed)
 
 
 def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dict:
@@ -125,37 +253,30 @@ def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dic
     np.savetxt(seed_dir / "W_structured.csv", W, delimiter=",")
     np.savetxt(seed_dir / "W_null.csv", Wn, delimiter=",")
 
-    structured = eval_condition(W, X, cfg, partitions, seed)
-    null = eval_condition(Wn, Xn, cfg, partitions, seed + 10_000)
+    structured = evaluate(W, X, partitions, cfg, seed)
+    null = evaluate(Wn, Xn, partitions, cfg, seed + 10_000)
     core.save_candidate_table(seed_dir / "structured_candidates.csv", partitions, structured)
     core.save_candidate_table(seed_dir / "null_candidates.csv", partitions, null)
 
-    # P3: isomorphic relabeling.
     p3 = relabel_case(W, X, seed, cfg, partitions)
 
-    # P4: continuous run, replacement begins exactly halfway through retained data.
     bias = core.replacement_surrogate_bias(seed, cfg["nodes"])
     _, Xpost = simulate_midpoint_replacement(
         W, seed + 20_000, int(cfg["burn_in"]), int(cfg["retained_steps"]), bias
     )
-    # Resampled observation labels are provenance metadata; array indices remain
-    # role coordinates so relabeling cannot itself manufacture organizational loss.
     label_rng = np.random.default_rng(seed + 520_000)
     replacement_labels = label_rng.permutation(cfg["nodes"]).tolist()
-    replacement = eval_condition(W, Xpost, cfg, partitions, seed + 20_000)
+    replacement = evaluate(W, Xpost, partitions, cfg, seed + 20_000, bias=bias)
 
-    # P5: 40% internal-O weight destinations effectively reassigned by selected-edge
-    # value permutation, preserving the selected/global weight inventory.
     Wr = core.rewire_internal_o(W, seed, float(cfg["rewire_fraction_internal_O"]))
     Xr = core.simulate(Wr, seed + 30_000, int(cfg["burn_in"]), int(cfg["retained_steps"]))
-    rewired = eval_condition(Wr, Xr, cfg, partitions, seed + 30_000)
+    rewired = evaluate(Wr, Xr, partitions, cfg, seed + 30_000)
 
     n = len(partitions)
     structured_pct = float(structured["planted_consensus_percentile"])
     null_pct = float(null["planted_consensus_percentile"])
     replacement_pct = float(replacement["planted_consensus_percentile"])
     rewired_pct = float(rewired["planted_consensus_percentile"])
-
     coupling_struct_pct = 100.0 * float(structured["coupling_rank"]) / n
     coupling_null_pct = 100.0 * float(null["coupling_rank"]) / n
 
@@ -167,6 +288,7 @@ def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dic
         "structured_kendall": float(structured["kendall"]),
         "null_kendall": float(null["kendall"]),
         "planted_percentile": structured_pct,
+        "planted_in_top_set": bool(structured["planted_in_top_set"]),
         "p3_relabel_percentile": float(p3["consensus_percentile"]),
         "p3_abs_delta": abs(float(p3["consensus_percentile"]) - structured_pct),
         "replacement_percentile": replacement_pct,
@@ -175,6 +297,7 @@ def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dic
         "rewiring_loss": rewired_pct - structured_pct,
         "coupling_structured_percentile": coupling_struct_pct,
         "coupling_null_percentile": coupling_null_pct,
+        "coupling_in_top_set": bool(structured["coupling_rank"] <= structured["top_n"]),
         "coupling_discrimination": coupling_null_pct - coupling_struct_pct,
         "consensus_discrimination": null_pct - structured_pct,
         "correlation_rank": int(structured["correlation_rank"]),
@@ -195,7 +318,7 @@ def verdict(rows: list[dict], cfg: dict) -> dict:
     th = cfg["primary_thresholds"]
     p1_wins = sum(r["jaccard_difference"] > 0 for r in rows)
     p1_med = float(np.median([r["jaccard_difference"] for r in rows]))
-    p2_count = sum(r["planted_percentile"] <= 100.0 * float(cfg["top_fraction"]) for r in rows)
+    p2_count = sum(bool(r["planted_in_top_set"]) for r in rows)
     p3_count = sum(r["p3_abs_delta"] <= float(th["P3_percentile_tolerance"]) for r in rows)
     p4_count = sum(r["replacement_loss"] < float(th["P4_max_percentile_loss"]) for r in rows)
     p5_count = sum(r["rewiring_loss"] >= float(th["P5_min_percentile_loss"]) for r in rows)
@@ -208,13 +331,13 @@ def verdict(rows: list[dict], cfg: dict) -> dict:
     P5 = p5_count >= int(th["P5_recovery_count"])
     P6 = p6_count >= int(th["P6_pair_wins"])
 
-    # Strong-falsification baseline interpretation fixed before first full run:
-    # boundary recovery: top-5% coupling rank count versus consensus P2 count.
-    # discrimination: positive structured-vs-null planted-rank separation count.
-    coupling_recovery = sum(r["coupling_structured_percentile"] <= 100.0 * float(cfg["top_fraction"]) for r in rows)
+    coupling_recovery = sum(bool(r["coupling_in_top_set"]) for r in rows)
     coupling_discrimination = sum(r["coupling_discrimination"] > 0 for r in rows)
     consensus_discrimination = sum(r["consensus_discrimination"] > 0 for r in rows)
-    baseline_dominates = coupling_recovery >= p2_count and coupling_discrimination >= consensus_discrimination
+    baseline_dominates = (
+        coupling_recovery >= p2_count
+        and coupling_discrimination >= consensus_discrimination
+    )
 
     strong = (not P1) or (p2_count <= len(rows) / 2) or baseline_dominates
     if not P1 or not P2:
@@ -249,6 +372,9 @@ def main() -> None:
     ap.add_argument("--smoke", action="store_true", help="NON-EVIDENTIARY code-path validation")
     args = ap.parse_args()
 
+    if not args.smoke and not tracked_tree_clean():
+        raise SystemExit("Refusing full run: tracked working tree differs from HEAD")
+
     cfg = core.load_config(args.config, args.smoke)
     out_dir = args.output
     if out_dir.exists() and any(out_dir.iterdir()):
@@ -260,6 +386,7 @@ def main() -> None:
         "experiment_id": "FR-FOURCE-FORMAL-007B",
         "mode": "SMOKE_NON_EVIDENTIARY" if args.smoke else "FULL_PREREGISTERED_CANDIDATE",
         "git_sha": git_sha(),
+        "tracked_tree_clean_at_start": tracked_tree_clean(),
         "python": sys.version,
         "platform": platform.platform(),
         "numpy": np.__version__,
@@ -267,10 +394,14 @@ def main() -> None:
         "config_sha256": core.sha256_file(args.config),
         "candidate_count": int(len(partitions)),
         "seeds": cfg["master_seeds"],
-        "corrections_from_007a": [
+        "pre_run_corrections": [
             "P3 isomorphic relabeling executed and scored",
             "P4 replacement begins at retained midpoint and post-change segment is scored",
-            "simple-coupling strong-falsification comparison made explicit before full run",
+            "P4 replacement bias propagated through M3 and M5 simulations",
+            "M4 requires uninterrupted retention through the full horizon",
+            "P2 and coupling baseline use the same integer top-set cutoff",
+            "full execution refuses tracked dirty working tree",
+            "simple-coupling strong-falsification comparison fixed before full run",
         ],
         "warning": "Smoke mode cannot support or falsify CSH-001. Full output is append-only.",
     }
@@ -285,8 +416,7 @@ def main() -> None:
     fields = list(rows[0].keys())
     with (out_dir / "summary_007b.csv").open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fields)
-        w.writeheader()
-        w.writerows(rows)
+        w.writeheader(); w.writerows(rows)
 
     decision = verdict(rows, cfg)
     if args.smoke:
