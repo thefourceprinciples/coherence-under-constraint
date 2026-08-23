@@ -20,8 +20,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install validation dependencies
-        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+      - name: Install validation and runtime dependencies
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements-dev.txt
+          python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Validate canon and documentation
         run: python scripts/validate_repo.py
@@ -37,8 +39,25 @@ jobs:
           import fr_fource_formal_007a as b
           p = b.generate_partitions(12)
           target = b.planted_mask(12)
-          assert len(p) > 0
+          assert len(p) == 2035
           assert sum((row == target).all() for row in p) == 1
           assert all(2 <= int(row.sum()) <= 10 for row in p)
           print('007A candidate partitions:', len(p))
+          PY
+
+      - name: Smoke-test corrected 007B runner
+        run: |
+          rm -rf /tmp/fr-fource-007b-smoke
+          python experiments/fr_fource_formal_007b.py --smoke --output /tmp/fr-fource-007b-smoke
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('/tmp/fr-fource-007b-smoke')
+          verdict = json.loads((root / 'verdict_007b.json').read_text())
+          manifest = json.loads((root / 'manifest_007b.json').read_text())
+          assert verdict['primary_status'] == 'NOT_EVIDENCE'
+          assert manifest['candidate_count'] == 2035
+          assert (root / 'seed_1000' / 'p3_relabel.json').exists()
+          assert (root / 'seed_1000' / 'p4_replacement_metadata.json').exists()
+          print('007B smoke validation passed; NON-EVIDENTIARY')
           PY
