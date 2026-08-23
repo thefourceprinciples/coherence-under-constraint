@@ -35,11 +35,6 @@ def git_sha() -> str:
 
 
 def tracked_tree_clean() -> bool:
-    """True only when tracked files exactly match HEAD.
-
-    Untracked result output is permitted because the runner creates it after
-    this check; tracked implementation/config edits are not.
-    """
     try:
         status = subprocess.check_output(
             ["git", "status", "--porcelain", "--untracked-files=no"],
@@ -50,21 +45,13 @@ def tracked_tree_clean() -> bool:
         return False
 
 
-def simulate_midpoint_replacement(
-    W: np.ndarray,
-    seed: int,
-    burn: int,
-    retained: int,
-    replacement_bias: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray]:
-    """Continuous trajectory with bias replacement at retained midpoint."""
+def simulate_midpoint_replacement(W, seed, burn, retained, replacement_bias):
     rng = np.random.default_rng(seed)
     n = W.shape[0]
     x = rng.integers(0, 2, size=n, dtype=np.uint8)
     for _ in range(burn):
         p = core.sigmoid(W @ (2.0 * x.astype(float) - 1.0))
         x = (rng.random(n) < p).astype(np.uint8)
-
     out = np.empty((retained, n), dtype=np.uint8)
     midpoint = retained // 2
     for t in range(retained):
@@ -75,15 +62,14 @@ def simulate_midpoint_replacement(
     return out, out[midpoint:]
 
 
-def canonicalize(mask: np.ndarray) -> np.ndarray:
+def canonicalize(mask):
     m = np.asarray(mask, dtype=np.uint8).copy()
     if m[0] == 0:
         m = 1 - m
     return m
 
 
-def uninterrupted_retention_score(macro: np.ndarray, horizon: int) -> float:
-    """M4: macrostate remains unchanged at every step through horizon."""
+def uninterrupted_retention_score(macro, horizon):
     if horizon < 1 or len(macro) <= horizon:
         return 0.0
     base = macro[:-horizon]
@@ -93,19 +79,11 @@ def uninterrupted_retention_score(macro: np.ndarray, horizon: int) -> float:
     observed = float(np.mean(retained))
     freqs = np.bincount(macro, minlength=4).astype(float)
     freqs /= freqs.sum()
-    # Chance that horizon subsequent independent draws all equal the initial draw.
     chance = float(np.sum(freqs ** (horizon + 1)))
     return observed - chance
 
 
-def intervention_matrix(
-    W: np.ndarray,
-    X: np.ndarray,
-    seed: int,
-    contexts: int,
-    bias: np.ndarray | None = None,
-) -> np.ndarray:
-    """One-step intervention proxy under the actual condition-specific bias."""
+def intervention_matrix(W, X, seed, contexts, bias=None):
     rng = np.random.default_rng(seed + 200_000)
     n = W.shape[0]
     b = np.zeros(n) if bias is None else np.asarray(bias, dtype=float)
@@ -120,25 +98,14 @@ def intervention_matrix(
         p1 = core.sigmoid(b + (2.0 * x1 - 1.0) @ W.T)
         for tgt in range(n):
             if tgt != src:
-                E[tgt, src] = core.bernoulli_js(
-                    float(p0[:, tgt].mean()), float(p1[:, tgt].mean())
-                )
+                E[tgt, src] = core.bernoulli_js(float(p0[:, tgt].mean()), float(p1[:, tgt].mean()))
     return E
 
 
-def score_static_metrics(
-    W: np.ndarray,
-    X: np.ndarray,
-    partitions: np.ndarray,
-    cfg: dict,
-    seed: int,
-    bias: np.ndarray | None = None,
-) -> dict[str, np.ndarray]:
+def score_static_metrics(W, X, partitions, cfg, seed, bias=None):
     alpha = float(cfg["pseudocount"])
     cmi = core.lag_cmi_matrix(X, alpha)
-    inter = intervention_matrix(
-        W, X, seed, int(cfg["intervention_contexts"]), bias=bias
-    )
+    inter = intervention_matrix(W, X, seed, int(cfg["intervention_contexts"]), bias=bias)
     m1 = np.empty(len(partitions)); m2 = np.empty(len(partitions))
     m3 = np.empty(len(partitions)); m4 = np.empty(len(partitions))
     for k, mask in enumerate(partitions):
@@ -150,20 +117,9 @@ def score_static_metrics(
     return {"M1": m1, "M2": m2, "M3": m3, "M4": m4}
 
 
-def perturbational_robustness(
-    W: np.ndarray,
-    X: np.ndarray,
-    partitions: np.ndarray,
-    cfg: dict,
-    seed: int,
-    bias: np.ndarray | None = None,
-) -> np.ndarray:
-    """M5 under the actual condition-specific bias."""
+def perturbational_robustness(W, X, partitions, cfg, seed, bias=None):
     alpha = float(cfg["pseudocount"])
-    base_tm = np.asarray([
-        core.transition_matrix(core.strict_majority_macro(X, mask), alpha)
-        for mask in partitions
-    ])
+    base_tm = np.asarray([core.transition_matrix(core.strict_majority_macro(X, mask), alpha) for mask in partitions])
     divergence = np.zeros(len(partitions), dtype=float)
     count = 0
     for sidx, sigma in enumerate(cfg["m5_sigmas"]):
@@ -172,10 +128,7 @@ def perturbational_robustness(
             rng = np.random.default_rng(rseed)
             Wp = W + rng.normal(0.0, float(sigma), size=W.shape)
             np.fill_diagonal(Wp, 0.0)
-            Xp = core.simulate(
-                Wp, rseed, int(cfg["m5_burn_in"]),
-                int(cfg["m5_retained_steps"]), bias=bias
-            )
+            Xp = core.simulate(Wp, rseed, int(cfg["m5_burn_in"]), int(cfg["m5_retained_steps"]), bias=bias)
             for k, mask in enumerate(partitions):
                 tm = core.transition_matrix(core.strict_majority_macro(Xp, mask), alpha)
                 divergence[k] += core.js_discrete(base_tm[k], tm)
@@ -183,18 +136,9 @@ def perturbational_robustness(
     return -divergence / max(count, 1)
 
 
-def evaluate(
-    W: np.ndarray,
-    X: np.ndarray,
-    partitions: np.ndarray,
-    cfg: dict,
-    seed: int,
-    bias: np.ndarray | None = None,
-) -> dict:
+def evaluate(W, X, partitions, cfg, seed, bias=None):
     scores = score_static_metrics(W, X, partitions, cfg, seed, bias=bias)
-    scores["M5"] = perturbational_robustness(
-        W, X, partitions, cfg, seed, bias=bias
-    )
+    scores["M5"] = perturbational_robustness(W, X, partitions, cfg, seed, bias=bias)
     ranks = {k: core.ranks_desc(v) for k, v in scores.items()}
     fam = core.family_ranks(ranks)
     cons = core.consensus_rank(fam)
@@ -202,12 +146,8 @@ def evaluate(
     planted = core.planted_mask(cfg["nodes"])
     pidx = next(i for i, m in enumerate(partitions) if np.array_equal(m, planted))
     return {
-        "scores": scores,
-        "ranks": ranks,
-        "family_ranks": fam,
-        "consensus": cons,
-        "top_n": top_n,
-        "planted_index": pidx,
+        "scores": scores, "ranks": ranks, "family_ranks": fam, "consensus": cons,
+        "top_n": top_n, "planted_index": pidx,
         "planted_consensus_rank": float(cons[pidx]),
         "planted_consensus_percentile": 100.0 * float(cons[pidx]) / len(partitions),
         "planted_in_top_set": bool(float(cons[pidx]) <= top_n),
@@ -218,14 +158,7 @@ def evaluate(
     }
 
 
-def relabel_case(
-    W: np.ndarray,
-    X: np.ndarray,
-    seed: int,
-    cfg: dict,
-    partitions: np.ndarray,
-) -> dict:
-    """P3: evaluate an isomorphic node relabeling of the same realization."""
+def relabel_case(W, X, seed, cfg, partitions):
     rng = np.random.default_rng(seed + 600_000)
     perm = rng.permutation(cfg["nodes"])
     Wp = W[np.ix_(perm, perm)]
@@ -235,17 +168,12 @@ def relabel_case(
     new_target = canonicalize(old_target[perm])
     pidx = next(i for i, m in enumerate(partitions) if np.array_equal(m, new_target))
     percentile = 100.0 * float(result["consensus"][pidx]) / len(partitions)
-    return {
-        "perm_new_to_old": perm.tolist(),
-        "target_new_labels": new_target.tolist(),
-        "consensus_percentile": percentile,
-    }
+    return {"perm_new_to_old": perm.tolist(), "target_new_labels": new_target.tolist(), "consensus_percentile": percentile}
 
 
-def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dict:
+def run_seed(seed, cfg, partitions, out_dir):
     seed_dir = out_dir / f"seed_{seed}"
     seed_dir.mkdir(parents=True, exist_ok=True)
-
     W = core.build_structured_w(seed, cfg)
     Wn = core.matched_null(W, seed)
     X = core.simulate(W, seed + 1, int(cfg["burn_in"]), int(cfg["retained_steps"]))
@@ -261,16 +189,17 @@ def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dic
     p3 = relabel_case(W, X, seed, cfg, partitions)
 
     bias = core.replacement_surrogate_bias(seed, cfg["nodes"])
-    _, Xpost = simulate_midpoint_replacement(
-        W, seed + 20_000, int(cfg["burn_in"]), int(cfg["retained_steps"]), bias
-    )
+    _, Xpost = simulate_midpoint_replacement(W, seed + 20_000, int(cfg["burn_in"]), int(cfg["retained_steps"]), bias)
     label_rng = np.random.default_rng(seed + 520_000)
     replacement_labels = label_rng.permutation(cfg["nodes"]).tolist()
     replacement = evaluate(W, Xpost, partitions, cfg, seed + 20_000, bias=bias)
+    core.save_candidate_table(seed_dir / "replacement_candidates.csv", partitions, replacement)
 
     Wr = core.rewire_internal_o(W, seed, float(cfg["rewire_fraction_internal_O"]))
     Xr = core.simulate(Wr, seed + 30_000, int(cfg["burn_in"]), int(cfg["retained_steps"]))
     rewired = evaluate(Wr, Xr, partitions, cfg, seed + 30_000)
+    np.savetxt(seed_dir / "W_rewired.csv", Wr, delimiter=",")
+    core.save_candidate_table(seed_dir / "rewired_candidates.csv", partitions, rewired)
 
     n = len(partitions)
     structured_pct = float(structured["planted_consensus_percentile"])
@@ -314,7 +243,7 @@ def run_seed(seed: int, cfg: dict, partitions: np.ndarray, out_dir: Path) -> dic
     return summary
 
 
-def verdict(rows: list[dict], cfg: dict) -> dict:
+def verdict(rows, cfg):
     th = cfg["primary_thresholds"]
     p1_wins = sum(r["jaccard_difference"] > 0 for r in rows)
     p1_med = float(np.median([r["jaccard_difference"] for r in rows]))
@@ -323,22 +252,16 @@ def verdict(rows: list[dict], cfg: dict) -> dict:
     p4_count = sum(r["replacement_loss"] < float(th["P4_max_percentile_loss"]) for r in rows)
     p5_count = sum(r["rewiring_loss"] >= float(th["P5_min_percentile_loss"]) for r in rows)
     p6_count = sum(r["rewiring_loss"] > r["replacement_loss"] for r in rows)
-
     P1 = p1_wins >= int(th["P1_pair_wins"]) and p1_med > float(th["P1_median_difference"])
     P2 = p2_count >= int(th["P2_recovery_count"])
     P3 = p3_count >= int(th["P3_invariance_count"])
     P4 = p4_count >= int(th["P4_recovery_count"])
     P5 = p5_count >= int(th["P5_recovery_count"])
     P6 = p6_count >= int(th["P6_pair_wins"])
-
     coupling_recovery = sum(bool(r["coupling_in_top_set"]) for r in rows)
     coupling_discrimination = sum(r["coupling_discrimination"] > 0 for r in rows)
     consensus_discrimination = sum(r["consensus_discrimination"] > 0 for r in rows)
-    baseline_dominates = (
-        coupling_recovery >= p2_count
-        and coupling_discrimination >= consensus_discrimination
-    )
-
+    baseline_dominates = coupling_recovery >= p2_count and coupling_discrimination >= consensus_discrimination
     strong = (not P1) or (p2_count <= len(rows) / 2) or baseline_dominates
     if not P1 or not P2:
         primary = "STRONG_FALSIFICATION" if strong else "FAIL"
@@ -346,7 +269,6 @@ def verdict(rows: list[dict], cfg: dict) -> dict:
         primary = "PARTIAL"
     else:
         primary = "PASS"
-
     return {
         "P1": {"pass": P1, "paired_wins": p1_wins, "median_difference": p1_med},
         "P2": {"pass": P2, "recovered": p2_count},
@@ -365,35 +287,28 @@ def verdict(rows: list[dict], cfg: dict) -> dict:
     }
 
 
-def main() -> None:
+def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     ap.add_argument("--output", type=Path, default=ROOT / "experiments" / "results" / "FR-FOURCE-FORMAL-007B")
-    ap.add_argument("--smoke", action="store_true", help="NON-EVIDENTIARY code-path validation")
+    ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
-
     if not args.smoke and not tracked_tree_clean():
         raise SystemExit("Refusing full run: tracked working tree differs from HEAD")
-
     cfg = core.load_config(args.config, args.smoke)
     out_dir = args.output
     if out_dir.exists() and any(out_dir.iterdir()):
         raise SystemExit(f"Refusing to overwrite append-only result directory: {out_dir}")
     out_dir.mkdir(parents=True, exist_ok=True)
     partitions = core.generate_partitions(int(cfg["nodes"]))
-
     manifest = {
         "experiment_id": "FR-FOURCE-FORMAL-007B",
         "mode": "SMOKE_NON_EVIDENTIARY" if args.smoke else "FULL_PREREGISTERED_CANDIDATE",
         "git_sha": git_sha(),
         "tracked_tree_clean_at_start": tracked_tree_clean(),
-        "python": sys.version,
-        "platform": platform.platform(),
-        "numpy": np.__version__,
-        "source_config": str(args.config),
-        "config_sha256": core.sha256_file(args.config),
-        "candidate_count": int(len(partitions)),
-        "seeds": cfg["master_seeds"],
+        "python": sys.version, "platform": platform.platform(), "numpy": np.__version__,
+        "source_config": str(args.config), "config_sha256": core.sha256_file(args.config),
+        "candidate_count": int(len(partitions)), "seeds": cfg["master_seeds"],
         "pre_run_corrections": [
             "P3 isomorphic relabeling executed and scored",
             "P4 replacement begins at retained midpoint and post-change segment is scored",
@@ -401,23 +316,20 @@ def main() -> None:
             "M4 requires uninterrupted retention through the full horizon",
             "P2 and coupling baseline use the same integer top-set cutoff",
             "full execution refuses tracked dirty working tree",
+            "replacement and rewiring candidate artifacts are preserved for audit",
             "simple-coupling strong-falsification comparison fixed before full run",
         ],
         "warning": "Smoke mode cannot support or falsify CSH-001. Full output is append-only.",
     }
     (out_dir / "manifest_007b.json").write_text(json.dumps(manifest, indent=2))
     (out_dir / "effective_config.json").write_text(json.dumps(cfg, indent=2))
-
     rows = []
     for seed in cfg["master_seeds"]:
         print(f"[007B] seed {seed}", flush=True)
         rows.append(run_seed(int(seed), cfg, partitions, out_dir))
-
     fields = list(rows[0].keys())
     with (out_dir / "summary_007b.csv").open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fields)
-        w.writeheader(); w.writerows(rows)
-
+        w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)
     decision = verdict(rows, cfg)
     if args.smoke:
         decision["primary_status"] = "NOT_EVIDENCE"
