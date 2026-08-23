@@ -27,5 +27,18 @@ jobs:
         run: python scripts/validate_repo.py
 
       - name: Compile Python sources
-        run: python -m compileall -q scripts simulations
+        run: python -m compileall -q scripts simulations experiments
 
+      - name: Validate 007A partition space
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, 'experiments')
+          import fr_fource_formal_007a as b
+          p = b.generate_partitions(12)
+          target = b.planted_mask(12)
+          assert len(p) > 0
+          assert sum((row == target).all() for row in p) == 1
+          assert all(2 <= int(row.sum()) <= 10 for row in p)
+          print('007A candidate partitions:', len(p))
+          PY
