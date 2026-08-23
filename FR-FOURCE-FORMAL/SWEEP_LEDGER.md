@@ -49,20 +49,34 @@ Required controls:
 - counterfactual interventions where possible
 - assumption/provenance dependency graph
 
-## 007 — Pending
+## 007 — The CMB-Style Bench / Frozen Preregistration
 
-First executable convergent-systemhood falsification bench.
+Result: CSH-001 is now attached to an executable-style falsification specification rather than an open-ended conceptual prediction.
 
-The bench must specify in advance:
+Frozen primary design:
+- 12-node stochastic binary dynamical system
+- planted organization O={0..7} versus environment E={8..11}
+- degree/weight-distribution matched rewired nulls
+- exhaustive nontrivial binary candidate partitions modulo complement symmetry, excluding singleton-vs-rest
+- five metric families: boundary separation, predictive compression, interventional separation, macrostate retention, perturbational robustness
+- conservative dependence grouping into three evidence families
+- deterministic seeds 1000–1029
+- explicit simple baselines
 
-- synthetic system generator
-- null generator
-- perturbation family
-- candidate partitions
-- systemhood metrics
-- dependence ledger
-- success thresholds
-- explicit failure criteria
-- deterministic seeds / reproducibility
+Primary predictions:
+- P1 structured systems exceed matched null convergence in at least 24/30 paired seeds and paired median difference >0.05
+- P2 planted O|E boundary is top-5% consensus in at least 24/30 structured replicates
+- P3 isomorphic relabeling preserves consensus rank within ±2 percentile points in at least 27/30
+- P4 constituent-replacement surrogate degrades planted-boundary consensus by <10 percentile points in at least 24/30
+- P5 40% internal relational rewiring degrades planted-boundary consensus by at least 20 percentile points in at least 24/30
+- P6 rewiring degrades consensus more than constituent replacement in at least 24/30 paired seeds
 
-No conclusion about Fource should be promoted before this bench runs.
+Failure rule:
+CSH-001 fails this bench if P1 or P2 fails. Strong falsification is recorded if structured systems do not beat null convergence, planted recovery is <=50%, or a simple coupling baseline matches/exceeds the proposed conservative consensus on both primary discrimination tasks.
+
+Non-rescue rule:
+No threshold changes, seed deletion, null weakening, metric addition, planted-boundary redefinition, or appeal to deeper coherence after first execution. Revisions require CSH-002 and a new untouched preregistration.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_007_PREREGISTRATION.md`
+
+Next: implement the frozen bench without altering its primary thresholds, preserve the first raw run append-only, and let the result determine Sweep 008.
