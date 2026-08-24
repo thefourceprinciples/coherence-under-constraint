@@ -1,0 +1,122 @@
+name: FR-FOURCE-FORMAL-007C Full Preregistered Run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fr-fource-formal-007c-first-run
+  cancel-in-progress: false
+
+env:
+  FROZEN_BRANCH: fr-fource-formal-007a
+  FROZEN_SHA: bb9d63da17bdd40b9be27a862307bf5cc907a9e7
+  RESULT_DIR: experiments/results/FR-FOURCE-FORMAL-007C-${{ github.run_id }}
+  META_DIR: /tmp/fr-fource-formal-007c-meta
+
+jobs:
+  full-preregistered-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out frozen implementation branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.FROZEN_BRANCH }}
+          fetch-depth: 1
+
+      - name: Verify exact frozen commit and clean tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="$(git rev-parse HEAD)"
+          echo "expected=${FROZEN_SHA}"
+          echo "actual=${actual}"
+          test "${actual}" = "${FROZEN_SHA}"
+          test -z "$(git status --porcelain --untracked-files=no)"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen runtime dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Stage execution provenance outside result directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "${META_DIR}"
+          mkdir -p "${META_DIR}"
+          {
+            echo "workflow_run_id=${GITHUB_RUN_ID}"
+            echo "workflow_run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "repository=${GITHUB_REPOSITORY}"
+            echo "frozen_branch=${FROZEN_BRANCH}"
+            echo "frozen_sha=${FROZEN_SHA}"
+            echo "runner_os=${RUNNER_OS}"
+            echo "runner_arch=${RUNNER_ARCH}"
+            python --version
+            python -m pip freeze
+          } > "${META_DIR}/execution_provenance.txt"
+          sha256sum \
+            FR-FOURCE-FORMAL/SWEEP_007_PREREGISTRATION.md \
+            experiments/configs/fr_fource_formal_007a.json \
+            experiments/fr_fource_formal_007a.py \
+            experiments/fr_fource_formal_007b.py \
+            > "${META_DIR}/frozen_input_sha256.txt"
+
+      - name: Execute first full preregistered bench
+        id: execute
+        shell: bash
+        run: |
+          set -euo pipefail
+          python experiments/fr_fource_formal_007b.py \
+            --config experiments/configs/fr_fource_formal_007a.json \
+            --output "${RESULT_DIR}"
+
+      - name: Attach provenance and hash preserved result bundle
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "${RESULT_DIR}"
+          cp -a "${META_DIR}/." "${RESULT_DIR}/"
+          find "${RESULT_DIR}" -type f ! -name RESULT_SHA256SUMS.txt -print0 \
+            | sort -z \
+            | xargs -0 sha256sum \
+            > "${RESULT_DIR}/RESULT_SHA256SUMS.txt"
+
+      - name: Upload immutable first-run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: FR-FOURCE-FORMAL-007C-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: ${{ env.RESULT_DIR }}
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0
+
+      - name: Publish run summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "# FR-FOURCE-FORMAL-007C"
+            echo
+            echo "Frozen implementation SHA: \`${FROZEN_SHA}\`"
+            echo
+            echo "GitHub run ID: \`${GITHUB_RUN_ID}\`"
+            echo
+            echo "The artifact is the preserved first-run bundle. Workflow success alone is not evidence for CSH-001."
+            if [ -f "${RESULT_DIR}/verdict_007b.json" ]; then
+              echo
+              echo "## Machine verdict file"
+              echo '```json'
+              cat "${RESULT_DIR}/verdict_007b.json"
+              echo '```'
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
