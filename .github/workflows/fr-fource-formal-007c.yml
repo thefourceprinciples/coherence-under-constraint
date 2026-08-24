@@ -12,7 +12,7 @@ concurrency:
 
 env:
   FROZEN_BRANCH: fr-fource-formal-007a
-  FROZEN_SHA: b5e5a01fee25427e69a863715bdebdc6bd675582
+  FROZEN_SHA: bb9d63da17bdd40b9be27a862307bf5cc907a9e7
   RESULT_DIR: experiments/results/FR-FOURCE-FORMAL-007C-${{ github.run_id }}
   META_DIR: /tmp/fr-fource-formal-007c-meta
 
