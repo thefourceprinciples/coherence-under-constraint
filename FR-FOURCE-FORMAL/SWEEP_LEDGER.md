@@ -79,4 +79,40 @@ No threshold changes, seed deletion, null weakening, metric addition, planted-bo
 
 Artifact: `FR-FOURCE-FORMAL/SWEEP_007_PREREGISTRATION.md`
 
-Next: implement the frozen bench without altering its primary thresholds, preserve the first raw run append-only, and let the result determine Sweep 008.
+## 007A–007B — Implementation and Verification
+
+Result: implementation defects were detected and corrected before any evidentiary run. Corrections included actual P3 execution, midpoint P4 replacement, P4 bias propagation into simulator-based metrics, uninterrupted M4 retention, clean-tree enforcement, consistent integer top-set handling, and preservation of replacement/rewiring audit artifacts.
+
+Final frozen implementation SHA: `bb9d63da17bdd40b9be27a862307bf5cc907a9e7`.
+
+## 007C — First Full Preregistered Execution
+
+GitHub Actions run: `32676070569`, attempt 1.
+
+Result bundle: `FR-FOURCE-FORMAL-007C-32676070569-attempt-1`.
+
+Artifact digest: `sha256:5d23a360651430505315b20fec48dbe5f7934a8dedf37ba8b707c915dac5e63c`.
+
+Execution completed successfully and preserved 307 files including a result checksum ledger.
+
+## 008 — The Verdict Sweep
+
+Machine verdict: **STRONG_FALSIFICATION** of CSH-001 on the preregistered bench.
+
+Primary outcomes:
+- P1 FAIL: structured systems beat null convergence in 1/30 seeds; median difference = -0.03886139817515447.
+- P2 FAIL: planted O|E boundary top-5% consensus in 12/30 seeds.
+- P3 PASS: relabeling invariance in 28/30 seeds.
+- P4 PASS: constituent-replacement tolerance in 30/30 seeds.
+- P5 FAIL: required rewiring degradation in 0/30 seeds.
+- P6 FAIL: rewiring degraded more than replacement in 4/30 seeds.
+- coupling baseline dominated: planted recovery 30/30, positive structured-vs-null discrimination 30/30, versus 26/30 consensus discrimination.
+
+Interpretation boundary:
+This result falsifies CSH-001 as preregistered on this synthetic bench. It does not establish that organization is unreal or falsify every possible CUC/Fource formulation. CSH-001 may not be rescued post hoc; any revision must become CSH-002 with a new preregistration and untouched new data.
+
+Notable post-result diagnostic: the P5 internal-O rewiring generally improved the planted O|E consensus rank rather than degrading it, raising a future design question about whether internal rewiring is appropriately targeted to destruction of the O|E boundary. This observation does not alter the CSH-001 verdict.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_008_VERDICT.md`.
+
+Next: adversarial postmortem before proposing any CSH-002.
