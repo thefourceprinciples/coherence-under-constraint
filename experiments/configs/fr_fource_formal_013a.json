@@ -1,0 +1,18 @@
+{
+  "status": "DESIGN_ONLY_NON_EVIDENTIARY",
+  "seed_classes": {
+    "design": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009],
+    "calibration": [3000,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020,3021,3022,3023,3024,3025,3026,3027,3028,3029],
+    "heldout": [4000,4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020,4021,4022,4023,4024,4025,4026,4027,4028,4029]
+  },
+  "generators": ["G1","G2","G3","G4","G5","G6"],
+  "probes": {
+    "Q-BND": {"license":["G1:L3"],"information":"static_relational_matrix","baseline":"raw_coupling_cut","nulls":["N1","N2"],"decoys":["DQ1","DQ2"]},
+    "Q-TMP": {"license":["G2:TEMP"],"information":"trajectory_only","baseline":"static_coupling_plus_one_step_activity","nulls":["N3","N2"],"decoys":["DQ5"]},
+    "Q-INT": {"license":["G3:CAUSAL"],"information":"intervention_responses","baseline":"observational_association","nulls":["N4"],"decoys":["DQ3","DQ4"]},
+    "Q-RET": {"license":[],"information":"preregistered_macrostate_trajectory","baseline":"state_frequency_retention","nulls":["N3"],"decoys":["DQ5"]},
+    "Q-PERT": {"license":[],"information":"baseline_and_perturbed","baseline":"matched_raw_change","nulls":["N1","N3","N4"],"decoys":[]}
+  },
+  "eligibility": {"top5_count":24,"null_median_margin":20.0,"null_positive_count":24,"targeted_damage":20.0,"targeted_damage_count":24,"nontarget_max_damage":10.0,"nontarget_count":24,"decoy_win_count":24,"label_max_change":2.0,"label_count":27},
+  "firewall": {"allow_design":true,"allow_calibration":false,"allow_heldout":false}
+}
