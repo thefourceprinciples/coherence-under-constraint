@@ -132,4 +132,26 @@ CSH-001's same-partition convergence operator was not a valid universalizer of t
 
 Artifact: `FR-FOURCE-FORMAL/SWEEP_009_FAILURE_ANATOMY.md`.
 
-Next: `FR–FOURCE–FORMAL–010 — The Null Reconstruction After Failure: What Would We Build If We Had Never Invented CSH-001?`
+## 010 — Null Reconstruction After Failure
+
+Result: CSH-001's convergence operator was bracketed and the system-boundary problem was reconstructed from scratch without assuming Fource, CUC, universal coherence, or one privileged partition.
+
+Core reconstruction:
+- replace unqualified systemhood with indexed systemhood `S(P | Q, L, I, T, N)` relative to task, scale, intervention class, temporal horizon, and null ensemble;
+- replace a winning partition with a multiscale organizational atlas retaining metric-specific signals and nested/incompatible levels;
+- require preregistered multiscale ground truth and level-specific destruction interventions;
+- calibrate generator, geometry, temporal, intervention, and agreement nulls separately;
+- require metrics to earn commensurability before aggregation;
+- treat simple baselines as the burden of proof rather than adversaries;
+- treat identity as an admissible lineage through an organizational atlas rather than a static boundary;
+- retain CUC only as an indexed methodological phrase unless stronger evidence emerges;
+- retain Fource only as a research-program label unless a non-redundant quantitative invariant or law is demonstrated.
+
+Strongest pre-hypothesis design principle:
+A claimed organizational level should be recoverable by methods theoretically sensitive to that level and should selectively disappear when the relations defining that level are destroyed, while unrelated levels remain comparatively intact.
+
+No CSH-002 is frozen yet.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_010_NULL_RECONSTRUCTION.md`.
+
+Next: `FR–FOURCE–FORMAL–011 — The Organizational Atlas: Formalizing Levels, Selective Destruction, and Metric-to-Target Commitments Before CSH-002.`
