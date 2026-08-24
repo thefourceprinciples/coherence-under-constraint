@@ -180,4 +180,51 @@ No CSH-002 is authorized yet. Numerical thresholds, held-out generators, metric-
 
 Artifact: `FR-FOURCE-FORMAL/SWEEP_011_ORGANIZATIONAL_ATLAS.md`.
 
-Next: `FR–FOURCE–FORMAL–012 — The Atlas Kill Box: specify held-out generator families, decoys, nulls, and numerical selectivity criteria before freezing CSH-002.`
+## 012 — The Atlas Kill Box
+
+Result: the Organizational Atlas was given explicit pre-hypothesis failure conditions before any new evidentiary data.
+
+Generator families proposed:
+- G1 static modular hierarchy;
+- G2 temporal organization without strong static modularity;
+- G3 interventional organization with observational mimicry;
+- G4 constituent-role substitution;
+- G5 nested organization with cross-scale conflict;
+- G6 structureless/adversarial decoy-rich generator.
+
+Data-separation rule:
+- design seeds for implementation only;
+- calibration seeds for variance/threshold calibration;
+- sealed held-out evidentiary seeds for any future CSH-002 test.
+
+Metric-to-target rule:
+Every metric must declare its licensed organizational target before holdout execution. Cross-scale disagreement is permitted; universal consensus is prohibited.
+
+Decoys:
+coupling, balanced-partition geometry, common-driver correlation, hub intervention, and trivial persistence decoys must be included where relevant.
+
+Nulls:
+N1 generator, N2 geometry, N3 temporal, N4 intervention, and N5 agreement nulls.
+
+Selective interventions:
+X1 local-module destruction, X2 composite-boundary destruction, X3 temporal-regime destruction, X4 causal-direction destruction, X5 global destruction, plus constituent-role and label-permutation controls.
+
+Eligibility targets before evidentiary testing:
+- target recovery in top 5% for >=80% calibration seeds;
+- >=20 percentile-point advantage over relevant null;
+- >=20 point targeted destruction effect in >=80%;
+- <10 point non-target damage in >=80%;
+- decoy rejection in >=80%;
+- label invariance within 2 percentile points in >=90%;
+- no novelty claim if a simpler equal-information baseline matches/exceeds all primary criteria.
+
+Hard future kill gates:
+K1 wrong-level recovery, K2 nonselective destruction, K3 decoy capture, K4 null equivalence, K5 baseline dominance, K6 representation contamination, K7 generator overfit.
+
+Provenance tags are required for every major design choice: PRE-001, POST-001, NULL-010, ATLAS-011, or KILL-012.
+
+CSH-002 remains unauthorized until exact generators, seed schedules, mappings, decoys, null algorithms, intervention strengths, calibration protocol, thresholds, failure rules, baselines, provenance, and workflow are frozen.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_012_ATLAS_KILL_BOX.md`.
+
+Next: `FR–FOURCE–FORMAL–013 — CSH-002 Authorization Gate: freeze generators, seed schedules, metric-to-target mappings, interventions, null algorithms, and calibration protocol before writing the new hypothesis.`
