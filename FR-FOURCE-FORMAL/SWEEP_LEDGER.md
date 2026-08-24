@@ -115,4 +115,21 @@ Notable post-result diagnostic: the P5 internal-O rewiring generally improved th
 
 Artifact: `FR-FOURCE-FORMAL/SWEEP_008_VERDICT.md`.
 
-Next: adversarial postmortem before proposing any CSH-002.
+## 009 — Failure Anatomy
+
+Result: the first-run artifact was decomposed to identify why CSH-001 failed without changing the verdict.
+
+Key findings:
+- the planted O|E boundary was extremely strong under M1 (median rank 2; top 5% in 30/30) but strongly rejected by the macro family (median family rank 1561.5; top 5% in 0/30);
+- M3's top-ranked partition separated the planted A module from B in 30/30 structured seeds, showing that the interventional family consistently detected a different planted organizational level rather than simply returning noise;
+- structured family rankings were less correlated than null rankings; median boundary/interventional Spearman correlation was 0.249 structured versus 0.481 null, while boundary/macro was approximately zero structured versus 0.209 null;
+- null macro rankings showed substantial candidate split-geometry bias, helping explain why agreement can arise without planted organization;
+- the simple coupling baseline had privileged access to the defining generative contrast and ranked O|E first in all 30 structured seeds;
+- P5 rewired relationships wholly inside O while leaving the O|E relation intact; M3 and the final consensus usually improved after this perturbation rather than degrading.
+
+Diagnostic classification:
+CSH-001's same-partition convergence operator was not a valid universalizer of the distinct organizational signals present in its multiscale generator. The failure remains intact. No CSH-002 is authorized yet.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_009_FAILURE_ANATOMY.md`.
+
+Next: `FR–FOURCE–FORMAL–010 — The Null Reconstruction After Failure: What Would We Build If We Had Never Invented CSH-001?`
