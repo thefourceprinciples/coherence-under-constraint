@@ -1,10 +1,12 @@
 import importlib.util
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MOD_PATH = ROOT / "experiments" / "fr_fource_formal_013a.py"
 spec = importlib.util.spec_from_file_location("atlas013a", MOD_PATH)
 mod = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = mod
 spec.loader.exec_module(mod)
 
 
