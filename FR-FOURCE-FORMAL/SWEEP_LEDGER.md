@@ -154,4 +154,30 @@ No CSH-002 is frozen yet.
 
 Artifact: `FR-FOURCE-FORMAL/SWEEP_010_NULL_RECONSTRUCTION.md`.
 
-Next: `FR–FOURCE–FORMAL–011 — The Organizational Atlas: Formalizing Levels, Selective Destruction, and Metric-to-Target Commitments Before CSH-002.`
+## 011 — The Organizational Atlas
+
+Result: the null reconstruction was converted into a formal pre-hypothesis architecture without using new data.
+
+Core object:
+`OA = {A(P,q,l,i,tau,N)}` — a task-, level-, intervention-, horizon-, and null-indexed atlas over candidate partitions/coarse-grainings. No universal systemhood scalar is defined.
+
+Key commitments:
+- preregister at least three legitimate levels (local A/B modules, composite O, external O|E boundary);
+- map every metric to the level(s) it is theoretically allowed to detect before execution;
+- classify metrics into same-target, complementary, cross-scale, nuisance-correlated, or antagonistic commensurability classes;
+- prohibit cross-scale rank averaging such as the failed CSH-001 universal consensus;
+- define selective destruction interventions D1 (A/B), D2 (O|E), and D3 (both), plus constituent-role and label-permutation controls;
+- represent intervention effects as a destruction/selectivity matrix rather than a universal degradation score;
+- calibrate generator, geometry, temporal, intervention, and agreement nulls separately;
+- require every richer probe to beat or complement the simplest baseline with equal information access;
+- represent nested/refinement/overlap relations explicitly in atlas topology;
+- retain identity as lineage through atlas coordinates rather than equality of a static partition.
+
+Critical candidate signature:
+The right probe recovers the level it was designed to detect, the right intervention selectively destroys that level, and unrelated levels remain comparatively intact.
+
+No CSH-002 is authorized yet. Numerical thresholds, held-out generators, metric-to-target mappings, decoys, and nulls remain to be frozen.
+
+Artifact: `FR-FOURCE-FORMAL/SWEEP_011_ORGANIZATIONAL_ATLAS.md`.
+
+Next: `FR–FOURCE–FORMAL–012 — The Atlas Kill Box: specify held-out generator families, decoys, nulls, and numerical selectivity criteria before freezing CSH-002.`
