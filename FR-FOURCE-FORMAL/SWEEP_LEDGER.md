@@ -36,195 +36,66 @@ Result: formulate a testable Convergent Systemhood Hypothesis rather than an ont
 
 CSH-001: dynamically organized systems should exhibit greater cross-method convergence on candidate organizational partitions than matched null systems; convergence should track organization more strongly than constituent identity.
 
-Required controls:
-
-- matched null systems
-- nested organization
-- constituent replacement
-- relational rewiring
-- single-metric decoys
-- coupling-strength confound
-- label permutation invariance
-- observation degradation
-- counterfactual interventions where possible
-- assumption/provenance dependency graph
-
 ## 007 — The CMB-Style Bench / Frozen Preregistration
 
-Result: CSH-001 is now attached to an executable-style falsification specification rather than an open-ended conceptual prediction.
-
-Frozen primary design:
-- 12-node stochastic binary dynamical system
-- planted organization O={0..7} versus environment E={8..11}
-- degree/weight-distribution matched rewired nulls
-- exhaustive nontrivial binary candidate partitions modulo complement symmetry, excluding singleton-vs-rest
-- five metric families: boundary separation, predictive compression, interventional separation, macrostate retention, perturbational robustness
-- conservative dependence grouping into three evidence families
-- deterministic seeds 1000–1029
-- explicit simple baselines
-
-Primary predictions:
-- P1 structured systems exceed matched null convergence in at least 24/30 paired seeds and paired median difference >0.05
-- P2 planted O|E boundary is top-5% consensus in at least 24/30 structured replicates
-- P3 isomorphic relabeling preserves consensus rank within ±2 percentile points in at least 27/30
-- P4 constituent-replacement surrogate degrades planted-boundary consensus by <10 percentile points in at least 24/30
-- P5 40% internal relational rewiring degrades planted-boundary consensus by at least 20 percentile points in at least 24/30
-- P6 rewiring degrades consensus more than constituent replacement in at least 24/30 paired seeds
-
-Failure rule:
-CSH-001 fails this bench if P1 or P2 fails. Strong falsification is recorded if structured systems do not beat null convergence, planted recovery is <=50%, or a simple coupling baseline matches/exceeds the proposed conservative consensus on both primary discrimination tasks.
-
-Non-rescue rule:
-No threshold changes, seed deletion, null weakening, metric addition, planted-boundary redefinition, or appeal to deeper coherence after first execution. Revisions require CSH-002 and a new untouched preregistration.
-
-Artifact: `FR-FOURCE-FORMAL/SWEEP_007_PREREGISTRATION.md`
+Result: CSH-001 was attached to an executable falsification specification with frozen seeds, metrics, controls, baselines, predictions, and a non-rescue rule.
 
 ## 007A–007B — Implementation and Verification
 
-Result: implementation defects were detected and corrected before any evidentiary run. Corrections included actual P3 execution, midpoint P4 replacement, P4 bias propagation into simulator-based metrics, uninterrupted M4 retention, clean-tree enforcement, consistent integer top-set handling, and preservation of replacement/rewiring audit artifacts.
-
-Final frozen implementation SHA: `bb9d63da17bdd40b9be27a862307bf5cc907a9e7`.
+Result: implementation defects were detected and corrected before evidentiary execution. Final frozen implementation SHA: `bb9d63da17bdd40b9be27a862307bf5cc907a9e7`.
 
 ## 007C — First Full Preregistered Execution
 
-GitHub Actions run: `32676070569`, attempt 1.
-
-Result bundle: `FR-FOURCE-FORMAL-007C-32676070569-attempt-1`.
-
-Artifact digest: `sha256:5d23a360651430505315b20fec48dbe5f7934a8dedf37ba8b707c915dac5e63c`.
-
-Execution completed successfully and preserved 307 files including a result checksum ledger.
+GitHub Actions run: `32676070569`, attempt 1. Result bundle: `FR-FOURCE-FORMAL-007C-32676070569-attempt-1`. Artifact digest: `sha256:5d23a360651430505315b20fec48dbe5f7934a8dedf37ba8b707c915dac5e63c`.
 
 ## 008 — The Verdict Sweep
 
-Machine verdict: **STRONG_FALSIFICATION** of CSH-001 on the preregistered bench.
-
-Primary outcomes:
-- P1 FAIL: structured systems beat null convergence in 1/30 seeds; median difference = -0.03886139817515447.
-- P2 FAIL: planted O|E boundary top-5% consensus in 12/30 seeds.
-- P3 PASS: relabeling invariance in 28/30 seeds.
-- P4 PASS: constituent-replacement tolerance in 30/30 seeds.
-- P5 FAIL: required rewiring degradation in 0/30 seeds.
-- P6 FAIL: rewiring degraded more than replacement in 4/30 seeds.
-- coupling baseline dominated: planted recovery 30/30, positive structured-vs-null discrimination 30/30, versus 26/30 consensus discrimination.
-
-Interpretation boundary:
-This result falsifies CSH-001 as preregistered on this synthetic bench. It does not establish that organization is unreal or falsify every possible CUC/Fource formulation. CSH-001 may not be rescued post hoc; any revision must become CSH-002 with a new preregistration and untouched new data.
-
-Notable post-result diagnostic: the P5 internal-O rewiring generally improved the planted O|E consensus rank rather than degrading it, raising a future design question about whether internal rewiring is appropriately targeted to destruction of the O|E boundary. This observation does not alter the CSH-001 verdict.
-
-Artifact: `FR-FOURCE-FORMAL/SWEEP_008_VERDICT.md`.
+Machine verdict: **STRONG_FALSIFICATION** of CSH-001 on the preregistered bench. P1, P2, P5, and P6 failed; P3 and P4 passed; the simple coupling baseline dominated the primary recovery task. The verdict is preserved and may not be rescued post hoc.
 
 ## 009 — Failure Anatomy
 
-Result: the first-run artifact was decomposed to identify why CSH-001 failed without changing the verdict.
-
-Key findings:
-- the planted O|E boundary was extremely strong under M1 (median rank 2; top 5% in 30/30) but strongly rejected by the macro family (median family rank 1561.5; top 5% in 0/30);
-- M3's top-ranked partition separated the planted A module from B in 30/30 structured seeds, showing that the interventional family consistently detected a different planted organizational level rather than simply returning noise;
-- structured family rankings were less correlated than null rankings; median boundary/interventional Spearman correlation was 0.249 structured versus 0.481 null, while boundary/macro was approximately zero structured versus 0.209 null;
-- null macro rankings showed substantial candidate split-geometry bias, helping explain why agreement can arise without planted organization;
-- the simple coupling baseline had privileged access to the defining generative contrast and ranked O|E first in all 30 structured seeds;
-- P5 rewired relationships wholly inside O while leaving the O|E relation intact; M3 and the final consensus usually improved after this perturbation rather than degrading.
-
-Diagnostic classification:
-CSH-001's same-partition convergence operator was not a valid universalizer of the distinct organizational signals present in its multiscale generator. The failure remains intact. No CSH-002 is authorized yet.
-
-Artifact: `FR-FOURCE-FORMAL/SWEEP_009_FAILURE_ANATOMY.md`.
+Result: the planted O|E boundary was strong under boundary separation while intervention and macro probes privileged other levels; nulls showed more cross-family agreement; the baseline had privileged access to the planted coupling contrast; and P5 damaged internal O structure rather than the O|E relation being scored. Same-partition convergence was therefore not a valid universalizer of the multiscale signals in the generator.
 
 ## 010 — Null Reconstruction After Failure
 
-Result: CSH-001's convergence operator was bracketed and the system-boundary problem was reconstructed from scratch without assuming Fource, CUC, universal coherence, or one privileged partition.
-
-Core reconstruction:
-- replace unqualified systemhood with indexed systemhood `S(P | Q, L, I, T, N)` relative to task, scale, intervention class, temporal horizon, and null ensemble;
-- replace a winning partition with a multiscale organizational atlas retaining metric-specific signals and nested/incompatible levels;
-- require preregistered multiscale ground truth and level-specific destruction interventions;
-- calibrate generator, geometry, temporal, intervention, and agreement nulls separately;
-- require metrics to earn commensurability before aggregation;
-- treat simple baselines as the burden of proof rather than adversaries;
-- treat identity as an admissible lineage through an organizational atlas rather than a static boundary;
-- retain CUC only as an indexed methodological phrase unless stronger evidence emerges;
-- retain Fource only as a research-program label unless a non-redundant quantitative invariant or law is demonstrated.
-
-Strongest pre-hypothesis design principle:
-A claimed organizational level should be recoverable by methods theoretically sensitive to that level and should selectively disappear when the relations defining that level are destroyed, while unrelated levels remain comparatively intact.
-
-No CSH-002 is frozen yet.
-
-Artifact: `FR-FOURCE-FORMAL/SWEEP_010_NULL_RECONSTRUCTION.md`.
+Result: replace unqualified systemhood with indexed systemhood `S(P | Q,L,I,T,N)`, a multiscale organizational atlas, selective level-specific interventions, metric-specific nulls, simple-baseline burden of proof, and lineage through atlas coordinates. Fource remains a research-program label rather than an established physical primitive.
 
 ## 011 — The Organizational Atlas
 
-Result: the null reconstruction was converted into a formal pre-hypothesis architecture without using new data.
-
-Core object:
-`OA = {A(P,q,l,i,tau,N)}` — a task-, level-, intervention-, horizon-, and null-indexed atlas over candidate partitions/coarse-grainings. No universal systemhood scalar is defined.
-
-Key commitments:
-- preregister at least three legitimate levels (local A/B modules, composite O, external O|E boundary);
-- map every metric to the level(s) it is theoretically allowed to detect before execution;
-- classify metrics into same-target, complementary, cross-scale, nuisance-correlated, or antagonistic commensurability classes;
-- prohibit cross-scale rank averaging such as the failed CSH-001 universal consensus;
-- define selective destruction interventions D1 (A/B), D2 (O|E), and D3 (both), plus constituent-role and label-permutation controls;
-- represent intervention effects as a destruction/selectivity matrix rather than a universal degradation score;
-- calibrate generator, geometry, temporal, intervention, and agreement nulls separately;
-- require every richer probe to beat or complement the simplest baseline with equal information access;
-- represent nested/refinement/overlap relations explicitly in atlas topology;
-- retain identity as lineage through atlas coordinates rather than equality of a static partition.
-
-Critical candidate signature:
-The right probe recovers the level it was designed to detect, the right intervention selectively destroys that level, and unrelated levels remain comparatively intact.
-
-No CSH-002 is authorized yet. Numerical thresholds, held-out generators, metric-to-target mappings, decoys, and nulls remain to be frozen.
-
-Artifact: `FR-FOURCE-FORMAL/SWEEP_011_ORGANIZATIONAL_ATLAS.md`.
+Result: formalize `OA={A(P,q,l,i,tau,N)}`; preregister legitimate levels; map metrics to licensed targets; classify commensurability; prohibit cross-scale rank averaging; define selective destruction and controls; represent nested/refinement/overlap relations explicitly; retain identity as lineage through atlas coordinates.
 
 ## 012 — The Atlas Kill Box
 
-Result: the Organizational Atlas was given explicit pre-hypothesis failure conditions before any new evidentiary data.
+Result: define G1–G6 generator families, design/calibration/holdout separation, DQ1–DQ5 decoys, N1–N5 null families, X1–X5 selective interventions plus controls, numerical eligibility targets, K1–K7 future kill gates, equal-information baselines, and provenance tags. CSH-002 remained unauthorized pending an exact freeze.
 
-Generator families proposed:
-- G1 static modular hierarchy;
-- G2 temporal organization without strong static modularity;
-- G3 interventional organization with observational mimicry;
-- G4 constituent-role substitution;
-- G5 nested organization with cross-scale conflict;
-- G6 structureless/adversarial decoy-rich generator.
+## 013 — CSH-002 Authorization Gate
 
-Data-separation rule:
-- design seeds for implementation only;
-- calibration seeds for variance/threshold calibration;
-- sealed held-out evidentiary seeds for any future CSH-002 test.
+Result: the pre-hypothesis experimental contract is now frozen sufficiently to authorize implementation and calibration, but not held-out execution.
 
-Metric-to-target rule:
-Every metric must declare its licensed organizational target before holdout execution. Cross-scale disagreement is permitted; universal consensus is prohibited.
+Frozen seed classes:
+- design 2000–2009;
+- calibration 3000–3029;
+- held-out evidentiary 4000–4029.
+No migration between classes is allowed.
 
-Decoys:
-coupling, balanced-partition geometry, common-driver correlation, hub intervention, and trivial persistence decoys must be included where relevant.
+Frozen generator semantics:
+G1 static modular hierarchy; G2 temporal organization with weak static signature; G3 observational mimic/interventional difference; G4 constituent-role substitution; G5 nested cross-scale conflict; G6 adversarial decoy-rich null-like family.
 
-Nulls:
-N1 generator, N2 geometry, N3 temporal, N4 intervention, and N5 agreement nulls.
+Initial licensed probes:
+Q-BND boundary separation; Q-TMP temporal predictive structure; Q-INT interventional separation; Q-RET level-specific retention; Q-PERT level-specific perturbational robustness. Each must register information access, licensed target, commensurability, nulls, decoys, destruction interventions, and equal-information baseline. No universal consensus is permitted.
 
-Selective interventions:
-X1 local-module destruction, X2 composite-boundary destruction, X3 temporal-regime destruction, X4 causal-direction destruction, X5 global destruction, plus constituent-role and label-permutation controls.
+Frozen decoys/null semantics:
+DQ1 coupling, DQ2 balance, DQ3 common-driver, DQ4 hub, DQ5 trivial persistence; N1 generator, N2 geometry, N3 temporal, N4 intervention, N5 same-target agreement null.
 
-Eligibility targets before evidentiary testing:
-- target recovery in top 5% for >=80% calibration seeds;
-- >=20 percentile-point advantage over relevant null;
-- >=20 point targeted destruction effect in >=80%;
-- <10 point non-target damage in >=80%;
-- decoy rejection in >=80%;
-- label invariance within 2 percentile points in >=90%;
-- no novelty claim if a simpler equal-information baseline matches/exceeds all primary criteria.
+Frozen selective interventions:
+X1 local-module destruction, X2 composite/external-boundary destruction, X3 temporal-regime destruction, X4 causal-direction destruction, X5 global destruction, XC1 role-preserving constituent substitution, XC2 isomorphic relabeling. Every selective intervention must emit a non-target preservation report.
 
-Hard future kill gates:
-K1 wrong-level recovery, K2 nonselective destruction, K3 decoy capture, K4 null equivalence, K5 baseline dominance, K6 representation contamination, K7 generator overfit.
+Calibration eligibility on seeds 3000–3029:
+E1 top-5% target recovery >=24/30; E2 median matched-null advantage >=20 percentile points and positive in >=24/30; E3 targeted destruction >=20 points in >=24/30 valid pairs; E4 non-target damage <10 points in >=24/30; E5 all applicable decoys rejected in >=24/30; E6 label-invariance change <=2 points in >=27/30; E7 richer probe must uniquely outperform/discriminate at least one preregistered task beyond its equal-information baseline for any novelty claim.
 
-Provenance tags are required for every major design choice: PRE-001, POST-001, NULL-010, ATLAS-011, or KILL-012.
+Authorization boundary:
+013 authorizes implementation, adversarial review, smoke testing, and calibration only. No 4000-series held-out seed may be executed until eligible metric-target pairs, exact CSH-002 predictions/failure aggregation, implementation SHA, and held-out workflow are frozen.
 
-CSH-002 remains unauthorized until exact generators, seed schedules, mappings, decoys, null algorithms, intervention strengths, calibration protocol, thresholds, failure rules, baselines, provenance, and workflow are frozen.
+Artifact: `FR-FOURCE-FORMAL/SWEEP_013_CSH002_AUTHORIZATION_GATE.md`.
 
-Artifact: `FR-FOURCE-FORMAL/SWEEP_012_ATLAS_KILL_BOX.md`.
-
-Next: `FR–FOURCE–FORMAL–013 — CSH-002 Authorization Gate: freeze generators, seed schedules, metric-to-target mappings, interventions, null algorithms, and calibration protocol before writing the new hypothesis.`
+Next: `FR–FOURCE–FORMAL–013A — Implement the frozen Atlas calibration bench, validate on design seeds only, and prepare a calibration workflow that cannot access 4000-series held-out seeds.`
