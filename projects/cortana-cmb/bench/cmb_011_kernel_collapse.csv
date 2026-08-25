@@ -1,0 +1,4 @@
+channel,rows,rank,kernel_dim,strong_rel_ge_0.1,rel_ge_0.01,rel_ge_0.001,nonzero_condition_number
+TT toy baseline,29,29,91,15,26,29,375.9108
+Polarization-like toy channel,29,29,91,12,20,25,42338.0
+Combined TT + polarization-like,58,54,66,15,28,33,1.606122e13

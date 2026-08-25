@@ -1,0 +1,10 @@
+CORTANA-CMB-010 Experimental Bench
+Model: large-angle Sachs-Wolfe TT transfer, l=2..30
+Primordial k bins: 120
+Observable multipoles: 29
+Whitened numerical rank: 29
+Exact Chronovisor kernel dimension: 91
+Relative smallest transmitted singular value: 0.00266021
+Transmitted-space condition number: 375.911
+Directions with relative singular value >= 0.1: 15
+Directions with relative singular value >= 0.01: 26
